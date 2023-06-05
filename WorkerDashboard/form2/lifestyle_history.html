@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pregnant Women Registration</title>
+  <link rel="stylesheet" type="text/css" href="form2_styles.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+
+<body>
+  <header>
+    <div class="top-section">
+      <div class="site-name">
+        <h1>PAALAN</h1>
+        <h2 class="subheading">PREGNANT WOMEN DETAILS</h2>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="form-container">
+      <h2>Personal Details</h2>
+      <form id="personalDetailsForm" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="smokingStatus">Smoking Status:</label>
+            <input type="text" class="form-control" id="smokingStatus" placeholder="Enter your smoking status">
+          </div>
+          <div class="form-group">
+            <label for="alcoholConsumption">Alcohol Consumption:</label>
+            <input type="text" class="form-control" id="alcoholConsumption" placeholder="Enter your alcohol consumption status">
+          </div>
+          <div class="form-group">
+            <label for="substanceAbuseHistory">Substance Abuse History:</label>
+            <input type="text" class="form-control" id="substanceAbuseHistory" placeholder="Enter your substance abuse history">
+          </div>
+          <div class="form-group">
+            <label for="dietaryPreferences">Dietary Preferences:</label>
+            <input type="text" class="form-control" id="dietaryPreferences" placeholder="Enter your dietary preferences">
+          </div>
+          <div class="form-group">
+            <label for="exerciseRoutine">Exercise Routine:</label>
+            <input type="text" class="form-control" id="exerciseRoutine" placeholder="Enter your exercise routine">
+          </div>
+          
+
+        <button type="submit" class="btn btn-primary" onclick="submitForPregnancyHistoryForm()">Next</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+
+
+    // Personal details Form Submission
+    function submitForPregnancyHistoryForm() {
+        window.location.href = "pregnancy_details.html";
+    }
+    
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

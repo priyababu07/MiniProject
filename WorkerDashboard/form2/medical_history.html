@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pregnant Women Registration</title>
+  <link rel="stylesheet" type="text/css" href="form2_styles.css">
+
+  <!--Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+
+
+<body>
+  <header>
+    <div class="top-section">
+      <div class="site-name">
+        <h1>PAALAN</h1>
+        <h2 class="subheading">PREGNANT WOMEN DETAILS</h2>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="container">
+    <div class="form-container">
+      <h2>Medical History</h2>
+      
+      <form action="form11.php" method="POST" id="medicalForm" onsubmit="return validateForm()">
+        <div class="form-row">
+            <label for="existingConditions">Existing Medical Conditions (if any):</label>
+          <input type="text" class="form-control" id="existingConditions" placeholder="Enter any existing medical conditions">
+        </div>
+        <div class="form-group">
+          <label for="previousComplications">Previous Pregnancy Complications (if any):</label>
+          <input type="text" class="form-control" id="previousComplications" placeholder="Enter any previous pregnancy complications">
+        </div>
+        <div class="form-group">
+          <label for="currentMedications">Current Medications:</label>
+          <input type="text" class="form-control" id="currentMedications" placeholder="Enter your current medications">
+        </div>
+        <div class="form-group">
+          <label for="allergies">Allergies:</label>
+          <input type="text" class="form-control" id="allergies" placeholder="Enter any allergies">
+        </div>
+        <div class="form-group">
+            <label for="bloodType">Blood Type:</label>
+            <select class="form-control" id="bloodType" required>
+              <option value="" selected disabled>Select your blood type</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" onclick="submitForObstetricHistoryForm()">Next</button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function validateForm() {
+      var form = document.getElementById("medicalForm");
+      return true;
+    }
+    // Medical History Form Submission
+    function submitForObstetricHistoryForm() {
+        window.location.href = "obstetric_history.html";
+    }
+
+  </script>
+</body>
+</html>

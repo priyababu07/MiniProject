@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student registration</title>
+  <link rel="stylesheet" type="text/css" href="form2_styles.css">
+  <!--Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+  <!-- css -->
+  <!-- <style>
+
+    body {
+    margin: 0;
+    padding: 0;
+  }
+    
+    header {
+      background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  .top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 25px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .site-name {
+    display: flex;
+    align-items: center;
+  }
+  
+  .site-name h1 {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .site-name h2 {
+    font-size: 18px;
+    font-weight: normal;
+  }
+
+    .form-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .form-container h2{
+      margin-bottom: 30px;
+    }
+
+  </style> -->
+</head>
+<body>
+  <header>
+    <div class="top-section">
+      <div class="site-name">
+        <h1>PAALAN</h1>
+        <h2 class="subheading">CHILD DETAILS</h2>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="container">
+    <div class="form-container">
+      <h2>Obstetric History(Optional)</h2>
+      
+      <form action="form11.php" method="POST" id="registrationForm" onsubmit="return validateForm()">
+        <div class="form-row">
+            <label for="gestationalAge">Gestational Age (in weeks):</label>
+            <input type="number" class="form-control" id="gestationalAge" placeholder="Enter the gestational age in weeks" >
+          </div>
+          <div class="form-group">
+            <label for="numAntenatalVisits">Number of Antenatal Visits:</label>
+            <input type="number" class="form-control" id="numAntenatalVisits" placeholder="Enter the number of antenatal visits" >
+          </div>
+          <div class="form-group">
+            <label for="lastAntenatalVisitDate">Date of Last Antenatal Visit:</label>
+            <input type="date" class="form-control" id="lastAntenatalVisitDate" placeholder="Enter the date of last antenatal visit" >
+          </div>
+          <div class="form-group">
+            <label for="numUltrasoundScans">Number of Ultrasound Scans:</label>
+            <input type="number" class="form-control" id="numUltrasoundScans" placeholder="Enter the number of ultrasound scans" >
+          </div>
+          <div class="form-group">
+            <label for="lastUltrasoundScanDate">Date of Last Ultrasound Scan:</label>
+            <input type="date" class="form-control" id="lastUltrasoundScanDate" placeholder="Enter the date of last ultrasound scan" >
+          </div>
+          <div class="form-group">
+            <label for="numBloodTests">Number of Blood Tests:</label>
+            <input type="number" class="form-control" id="numBloodTests" placeholder="Enter the number of blood tests" >
+          </div>
+          <div class="form-group">
+            <label for="lastBloodTestDate">Date of Last Blood Test:</label>
+            <input type="date" class="form-control" id="lastBloodTestDate" placeholder="Enter the date of last blood test" >
+          </div>
+          <div class="form-group">
+            <label for="bloodTestResults">Blood Test Results:</label>
+            <input type="text" class="form-control" id="bloodTestResults" placeholder="Enter the blood test results" >
+          </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" onclick="submitForLifeStyleHistoryForm()">Next</button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function validateForm() {
+      var form = document.getElementById("registrationForm");
+      return true;
+    }
+    // Obstrtric History Form Submission
+    function submitForLifeStyleHistoryForm() {
+        window.location.href = "lifestyle_history.html";
+    }
+
+  </script>
+</body>
+</html>
