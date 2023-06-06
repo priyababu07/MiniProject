@@ -1,7 +1,7 @@
   body {
     margin: 0;
     padding: 0;
-    background-color:#f2f2f2;
+    background-color:#fff;
   }
   
   header {
@@ -11,18 +11,6 @@
     width: 100%;
     background-color: #f2f2f2;
     padding: 0;
-    z-index: 999;
-  }
-  
-  .sidebar {
-    position: fixed;
-    top: 139px; /* Adjust the top value as per your requirement */
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    color: #fff;
-    font-family: Arial, sans-serif;
     z-index: 999;
   }
   
@@ -65,12 +53,14 @@
   .left-section ul li {
     display: inline-block;
     margin-right: 10px;
+    
   }
   
   .left-section ul li a {
     color: #fff;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-size: large;
   }
   
   .left-section ul li a:hover {
@@ -82,7 +72,7 @@
     font-size: 36px;
     text-align: center;
     margin-top: 130px;
-    margin-bottom: 35px; /* Add a margin-bottom to create space between the title and boxes */
+    margin-bottom: 35px; /* Adding a margin-bottom to create space between the title and boxes */
   }
   
   #dashboard-title span {
@@ -98,15 +88,18 @@
   
 .sidebar {
   position: fixed;
-  top: 99.5px; /* Adjust the top value as per your requirement */
+  top: 99.5px; 
+  /* 139px */
   left: 0;
-  width: 200px;
-  height: 100%;
+  width: 200px;  
+  /* 250 */
+  height: 100%;  
   background-color: #f2f2f2;
-  color: #fff;
+  /* color: #fff; */
   font-family: Arial, sans-serif;
   z-index: 999;
 }
+  
   
 
   .sidebar ul {
