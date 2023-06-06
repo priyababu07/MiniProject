@@ -27,7 +27,7 @@ $result = display_data($search);
             color: black;
         }
         .sidebar {
-            background-color: #333;
+        background-color: #333;
         color: #fff;
         padding: 20px;
         height: 100vh;
@@ -91,7 +91,7 @@ $result = display_data($search);
             padding: 10px;
         }
         .btn-primary {
-            background-color: rgb(224, 183, 20);
+            background-color: black;
             border-color: rgb(224, 183, 20);
         }
         .btn-primary:hover {
@@ -136,10 +136,10 @@ $result = display_data($search);
                     <img src="your-logo.png" alt="Logo">
                 </div>
                 <ul>
-                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="main.php">Dashboard</a></li>
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Settings</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
             </div>
             <div class="col-md-9 content">
