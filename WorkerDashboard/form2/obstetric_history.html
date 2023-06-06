@@ -21,7 +21,6 @@
   <div class="container">
     <div class="form-container">
       <h2>Obstetric History(Optional)</h2>
-      
       <form action="form11.php" method="POST" id="registrationForm" onsubmit="return validateForm()">
         <div class="form-row">
             <label for="gestationalAge">Gestational Age (in weeks):</label>
@@ -65,10 +64,10 @@
   <!-- Bootstrap JS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    function validateForm() {
-      var form = document.getElementById("registrationForm");
-      return true;
-    }
+    // function validateForm() {
+    //   var form = document.getElementById("registrationForm");
+    //   return true;
+    // }
     // Obstrtric History Form Submission
     function submitForLifeStyleHistoryForm() {
         window.location.href = "lifestyle_history.html";

@@ -9,7 +9,7 @@ header {
 }
 
 .top-section {
-  display: flex;
+  display: fixed;
   justify-content: space-between;
   align-items: center;
   background-color: #333;
