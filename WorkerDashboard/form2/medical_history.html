@@ -8,9 +8,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 </head>
-
-
-
 <body>
   <header>
     <div class="top-section">
@@ -20,13 +17,11 @@
       </div>
     </div>
   </header>
-
-
   <div class="container">
     <div class="form-container">
       <h2>Medical History</h2>
       
-      <form action="form11.php" method="POST" id="medicalForm" onsubmit="return validateForm()">
+      <form action="form11.php" method="POST" id="medicalForm">
         <div class="form-row">
             <label for="existingConditions">Existing Medical Conditions (if any):</label>
           <input type="text" class="form-control" id="existingConditions" placeholder="Enter any existing medical conditions">
@@ -58,7 +53,13 @@
             </select>
           </div>
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary" onclick="submitForObstetricHistoryForm()">Next</button>
+        <!-- <button type="submit" class="btn btn-primary" onclick="submitForObstetricHistoryForm()">Next</button> -->
+
+        <!-- Navigation Buttons -->
+        <div class="form-group buttons">
+          <button type="button" class="btn btn-primary" onclick="goToPreviousPage()">Previous</button>
+          <button type="submit" class="btn btn-primary" onclick="submitForObstetricHistoryForm()">Next</button>
+        </div>
 
       </form>
     </div>
@@ -67,13 +68,12 @@
   <!-- Bootstrap JS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    function validateForm() {
-      var form = document.getElementById("medicalForm");
-      return true;
-    }
     // Medical History Form Submission
     function submitForObstetricHistoryForm() {
         window.location.href = "obstetric_history.html";
+    }
+    function goToPreviousPage() {
+        window.location.href = "pregnancy_details.html";
     }
 
   </script>
