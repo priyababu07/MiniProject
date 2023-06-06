@@ -10,6 +10,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -99,13 +100,43 @@ session_start();
 
         <div class="col-div-3">
             <div class="box">
-                <p>99<br/><span>LactatingWomen</span></p>
+            <?php
+        $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+
+        // Execute the query
+        $sql = "SELECT COUNT(*) AS total_count FROM pregnant_women";
+        $result = $con->query($sql);
+
+        if ($result === false) {
+            echo "Error: " . $con->error;
+            // Handle the error appropriately
+        } else {
+            $row = $result->fetch_assoc();
+            $totalCount = $row["total_count"];
+        }
+        ?>
+                <p><?php echo $totalCount; ?><br/><span>LactatingWomen</span></p>
                 <i class="fas fa-female box-icon"></i>
             </div>
         </div>
         <div class="col-div-3">
             <div class="box">
-                <p>78<br/><span>Childrens</span></p>
+            <?php
+        $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+
+        // Execute the query
+        $sql = "SELECT COUNT(*) AS total_count FROM Child";
+        $result = $con->query($sql);
+
+        if ($result === false) {
+            echo "Error: " . $con->error;
+            // Handle the error appropriately
+        } else {
+            $row = $result->fetch_assoc();
+            $totalCount = $row["total_count"];
+        }
+        ?>
+                <p><?php echo $totalCount; ?><br/><span>Childrens</span></p>
                 <i class="fas fa-child box-icon"></i>
             </div>
         </div>
@@ -181,7 +212,7 @@ session_start();
         <div class="col-div-4">
             <div class="box-4">
                 <div class="content-box">
-                    <p>Total Sale </p>
+                    <p>Total Stock Provided </p>
 
                     <div class="circle-wrap">
                         <div class="circle">

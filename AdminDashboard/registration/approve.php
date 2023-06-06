@@ -46,7 +46,7 @@ if (isset($_POST['submissionId']) && isset($_POST['status'])) {
             $age = $row['age'];
 
             // Insert the data into the target table in the target database
-            $sql = "INSERT INTO  AGW (username, email, age) VALUES ('$username', '$email', '$age')";
+            $sql = "INSERT INTO AGW (username, email, age) VALUES ('$username', '$email', '$age')";
             if ($targetConn->query($sql) === TRUE) {
                 echo "Data moved to the target table successfully";
             } else {
