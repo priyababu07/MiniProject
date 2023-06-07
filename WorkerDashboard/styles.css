@@ -67,7 +67,14 @@
     color: #FFEA20;
   }
   
-  
+  .site-name a{
+    text-decoration: none;
+    color: #fff;
+    font-size: large;
+    
+  }
+
+
   #dashboard-title {
     font-size: 36px;
     text-align: center;
