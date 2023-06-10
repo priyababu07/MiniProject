@@ -50,36 +50,3 @@ mysqli_close($conn);
 ?>
 
 
-
-
-
-
-
-
-
-
-
-
-
-<!-- if(isset($_POST['submit'])){ // Fetching variables of the form which travels in URL
- $child_name = $_POST['childName']; -->
-
-
-
-
-
-
-
-<!-- $sql="insert into child_details(child_name) values ('$child_name')
-$query = mysqli_query(");
-echo "<br/><br/><span>Data Inserted successfully...!!</span>";
-}
-else{
-echo "<p>Insertion Failed <br/> Some Fields are Blank....!!</p>";
-}
-}
-mysql_close($connection); // Closing Connection with Server
-?> -->
-
-
-
