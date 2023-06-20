@@ -109,6 +109,14 @@
             color: #fff;
         }
     </style>
+    <script>
+        // JavaScript function to auto-refresh the page
+        function autoRefresh() {
+            setTimeout(function() {
+                location.reload();
+            }, 1000); // Refresh the page every 1 second (1000 milliseconds)
+        }
+    </script>
 </head>
 <body>
     <div class="navbar">
@@ -198,14 +206,6 @@
 
                         // Delete the approved request from the stock_requests table
                         $deleteSql = "DELETE FROM stock_requests WHERE id = $requestId";
-                        echo "<script> 
-                        
-                        function autoRefresh() {
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000); 
-                        }
-                    </script>";
                         mysqli_query($conn, $deleteSql);
                     } else {
                         echo "<p>Error inserting data into stock_approved table: " . mysqli_error($conn) . "</p>";
@@ -213,15 +213,32 @@
                 } else {
                     echo "";
                 }
+            } else {
+                // If the request is rejected, delete it from the stock_requests table
+                $deleteSql = "DELETE FROM stock_requests WHERE id = $requestId";
+                if (mysqli_query($conn, $deleteSql)) {
+                    echo "<p>Stock request rejected and removed from the table.</p>";
+                } else {
+                    echo "<p>Error deleting stock request: " . mysqli_error($conn) . "</p>";
+                }
             }
-        } else {
+            echo "<script>
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000); // Refresh the page after 2 seconds (2000 milliseconds)
+                    </script>";
+
+        }
+        
+         else {
             echo "<p>Error updating status: " . mysqli_error($conn) . "</p>";
         }
     }
 
     // Close the database connection
     mysqli_close($conn);
-    ?>
+?>
+
     </div>
    
 </body>

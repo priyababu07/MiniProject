@@ -1,3 +1,4 @@
+<?php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,46 +149,7 @@
             text-decoration:none;
             color: #ffffff;
         }
-        select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-            width: 100%;
-            font-size: 14px;
-            color: #333;
-        }
-
-        select option {
-            background-color: #fff;
-            color: #333;
-        }
-
-        select option:hover {
-            background-color: #f5f5f5;
-        }
-
-        select:focus {
-            outline: none;
-            box-shadow: 0 0 5px #ddd;
-        }
     </style>
-    <script>
-        // Function to toggle the visibility of the defect details input field
-        function toggleDefectDetails() {
-            var defectQuestion = document.getElementById("defect_question");
-            var defectDetails = document.getElementById("defect_details");
-
-            if (defectQuestion.value === "Yes") {
-                defectDetails.style.display = "block";
-            } else {
-                defectDetails.style.display = "none";
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="navbar">
@@ -211,22 +173,11 @@
             <label for="quantity">Quantity:</label>
             <input type="number" id="quantity" name="quantity" required>
 
-            <label for="defect_question">Is there any defect?</label>
-            <select id="defect_question" name="defect_question" onchange="toggleDefectDetails()">
-                <option value="No">No</option>
-                <option value="Yes">Yes</option>
-            </select>
-
-            <div id="defect_details" style="display: none;">
-                <label for="defect_details">Defect Details:</label>
-                <textarea id="defect_details" name="defect_details"></textarea>
-            </div>
+            <label for="defect_details">Defect Details:</label>
+            <textarea id="defect_details" name="defect_details"></textarea>
 
             <button type="submit">Order Placed</button>
         </form>
     </div>
 </body>
 </html>
-
-
-
