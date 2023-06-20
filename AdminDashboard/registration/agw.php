@@ -1,6 +1,7 @@
 <?php
 require_once 'config/db.php';
 require_once 'config/functions.php';
+
 $result = display_data();
 ?>
 
