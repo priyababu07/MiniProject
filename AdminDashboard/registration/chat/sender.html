@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat System</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-container {
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.chat-header {
+    background-color: #075e54;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.chat-messages {
+    height: 300px;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.chat-input select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.chat-input button {
+    padding: 8px 16px;
+    background-color: #128c7e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.sender {
+    text-align: right;
+    background-color: #ff8080;
+}
+
+.receiver {
+    text-align: left;
+    background-color: #99ff99;
+}
+
+.stock-available {
+    background-color: #99ff99;
+}
+
+.stock-defect {
+    background-color: #ff8080;
+}
+
+.stock-unavailable {
+    background-color: #ffff99;
+}
+
+    </style>
+</head>
+<body>
+    
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Chat System</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>Chat System</h2>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div class="chat-input">
+            <select id="stock-status-select">
+                <option value="defect">Defect</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+            </select>
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+
+
+
+    <script >
+       // Get DOM elements
+const stockStatusSelect = document.getElementById('stock-status-select');
+const sendButton = document.getElementById('send-button');
+const chatContainer = document.querySelector('.chat-container');
+
+// Send message
+function sendMessage() {
+    const stockStatus = stockStatusSelect.value;
+
+    if (stockStatus === 'defect') {
+        chatContainer.style.backgroundColor = '#ff8080';
+    } else if (stockStatus === 'available') {
+        chatContainer.style.backgroundColor = '#99ff99';
+    } else if (stockStatus === 'unavailable') {
+        chatContainer.style.backgroundColor = '#ffff99';
+    }
+}
+
+// Event listener for send button click
+sendButton.addEventListener('click', sendMessage);
+
+
+    </script>
+</body>
+</html>
