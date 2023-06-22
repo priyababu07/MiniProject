@@ -15,6 +15,11 @@ include 'connect.php';
       text-decoration: none;
     }
   </style>
+  <script>
+    function confirmDelete() {
+      return confirm("Are you sure you want to delete this record?");
+    }
+  </script>
 </head>
 
 <body>
@@ -23,7 +28,7 @@ include 'connect.php';
       <a href="../form2/form2.html" class="text-light">ADD NEW</a>
     </button>
     <table class="table table-striped table-dark table-hover">
-      <thead class="table-warning">
+      <thead class="table-primary">
         <tr>
           <th scope="col">Id no:</th>
           <th scope="col">First Name</th>
@@ -70,7 +75,7 @@ include 'connect.php';
                   <td>' . $email . '</td>
                   <td>
                     <button class="btn btn-primary"><a href="update_button_women.php? updateid=' . $id . '"  class="text-light">Update</a></button>
-                    <button class="btn btn-danger"><a href="delete_btn_women.php? deleteid=' . $id . '" class="text-light">Delete</a></button>
+                    <button class="btn btn-danger"><a href="delete_btn_women.php? deleteid=' . $id . '" class="text-light" onclick="return confirmDelete();">Delete</a></button>
                   </td>
                 </tr>';
           }
