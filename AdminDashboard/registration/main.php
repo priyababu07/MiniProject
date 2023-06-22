@@ -146,38 +146,126 @@ session_start();
             <div class="box-8">
                 <div class="content-box">
                     <p>Approval Board </p>
-                    
                     <?php
-                    // Retrieve submissions with approval status as "pending" from the database
-                    $conn = new mysqli("localhost", "root", "", "Requestes");
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+// Create a database connection
+$conn = mysqli_connect("localhost", "root", "", "AganwadiWorker");
 
-                    $sql = "SELECT * FROM submissions WHERE approval_status = 'pending'";
-                    $result = $conn->query($sql);
+// Check if the connection is successful
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
-                    if ($result->num_rows > 0) {
-                        echo "<table>";
-                        echo "<tr><th>id</th><th>username</th><th>email</th><th>age</th><th>Action</th></tr>";
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td>" . $row['id'] . "</td>";
-                            echo "<td>" . $row['username'] . "</td>";
-                            echo "<td>" . $row['email'] . "</td>";
-                            echo "<td>" . $row['age'] . "</td>";
-                            echo '<td>';
-                            echo '<button class="status-button" data-submission-id="' . $row['id'] . '" data-status="approved">Approve</button>';
-                            echo '<button class="status-button" data-submission-id="' . $row['id'] . '" data-status="rejected">Reject</button>';
-                            echo '</td>';
-                            echo "</tr>";
-                        }
-                        echo "</table>";
-                    } else {
-                        echo "No pending submissions.";
-                    }
-                    $conn->close();
-                    ?>
+// Fetch all pending stock requests
+$sql = "SELECT * FROM workers";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // Output the stock requests in a table
+    echo "<table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Score</th>
+                <th>Place</th>
+                <th>Action</th>
+            </tr>";
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<tr>
+                <td>" . $row['id'] . "</td>
+                <td>" . $row['name'] . "</td>
+                <td>" . $row['age'] . "</td>
+                <td>" . $row['score'] . "</td>
+                <td>" . $row['place'] . "</td>
+                <td>
+                    <form method='POST' action='" . $_SERVER['PHP_SELF'] . "'>
+                        <input type='hidden' name='request_id' value='" . $row['id'] . "'>
+                        <button type='submit' name='approve' class='approve'>Approve</button>
+                        <button type='submit' name='reject' class='reject'>Reject</button>
+                    </form>
+                </td>
+            </tr>";
+    }
+
+    echo "</table>";
+} else {
+    echo "No pending stock requests.";
+}
+
+// Process the approval or rejection of stock requests
+if (isset($_POST['approve']) || isset($_POST['reject'])) {
+    $requestId = $_POST['request_id'];
+    $status = isset($_POST['approve']) ? 'approved' : 'rejected';
+
+    // Update the status of the stock request using prepared statements
+    $updateSql = "UPDATE workers SET status = ? WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $updateSql);
+    mysqli_stmt_bind_param($stmt, "si", $status, $requestId);
+
+    if (mysqli_stmt_execute($stmt)) {
+        echo "<p>Stock request " . $status . " successfully.</p>";
+
+        // If the request is approved, insert it into the stock_approved table
+        if ($status === "approved") {
+            $selectSql = "SELECT * FROM workers WHERE id = ?";
+            $stmt = mysqli_prepare($conn, $selectSql);
+            mysqli_stmt_bind_param($stmt, "i", $requestId);
+            mysqli_stmt_execute($stmt);
+            $selectResult = mysqli_stmt_get_result($stmt);
+
+            if (mysqli_num_rows($selectResult) > 0) {
+                $selectRow = mysqli_fetch_assoc($selectResult);
+
+                $name = $selectRow['name'];
+                $age = $selectRow['age'];
+                $score = $selectRow['score'];
+                $place = $selectRow['place'];
+
+                // Prepare and execute the insert statement for stock_approved table
+                $insertSql = "INSERT INTO newworkers (name, age, score, place) VALUES (?, ?, ?, ?)";
+                $stmt = mysqli_prepare($conn, $insertSql);
+                mysqli_stmt_bind_param($stmt, "siss", $name, $age, $score, $place);
+
+                if (mysqli_stmt_execute($stmt)) {
+                    echo "<p>Approved submission inserted into stock_approved table.</p>";
+
+                    // Delete the approved request from the workers table
+                    $deleteSql = "DELETE FROM workers WHERE id = ?";
+                    $stmt = mysqli_prepare($conn, $deleteSql);
+                    mysqli_stmt_bind_param($stmt, "i", $requestId);
+                    mysqli_stmt_execute($stmt);
+                } else {
+                    echo "<p>Error inserting data into stock_approved table: " . mysqli_error($conn) . "</p>";
+                }
+            } else {
+                echo "";
+            }
+        } else {
+            // If the request is rejected, delete it from the workers table
+            $deleteSql = "DELETE FROM workers WHERE id = ?";
+            $stmt = mysqli_prepare($conn, $deleteSql);
+            mysqli_stmt_bind_param($stmt, "i", $requestId);
+            if (mysqli_stmt_execute($stmt)) {
+                echo "<p>Stock request rejected and removed from the table.</p>";
+            } else {
+                echo "<p>Error deleting stock request: " . mysqli_error($conn) . "</p>";
+            }
+        }
+        echo "<script>
+                setTimeout(function() {
+                    location.reload();
+                }, 2000); // Refresh the page after 2 seconds (2000 milliseconds)
+            </script>";
+    } else {
+        echo "<p>Error updating status: " . mysqli_error($conn) . "</p>";
+    }
+}
+
+// Close the database connection
+mysqli_close($conn);
+?>
+
 
                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                     <script>
