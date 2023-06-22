@@ -1,68 +1,60 @@
 <?php
 $host = "localhost";
-$username = "root";
+$user = "root";
 $password = "";
-$dbname = "paalan";
+$db = "paalan";
 
-// Establish a connection to the database
-$conn = new mysqli($host, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$data = mysqli_connect($host, $user, $password, $db);
+
+if ($data == false) {
+    die("connection error");
 }
 
-// Personal Details
-$firstName = $_POST['first_name'];
-$lastName = $_POST['last_name'];
-$dob = $_POST['DOB'];
-$age = $_POST['Age'];
-$aadhaar = $_POST['Aadhaar'];
-$address = $_POST['Address'];
-$city = $_POST['City'];
-$postalCode = $_POST['PostalCode'];
-$contactNumber = $_POST['Ph_num'];
-$email = $_POST['Email'];
+if (isset($_POST['submit'])) {
+    // Personal Details
+    $firstName = $_POST['first_name'];
+    $lastName = $_POST['last_name'];
+    $dob = $_POST['DOB'];
+    $age = $_POST['Age'];
+    $aadhaar = $_POST['Aadhaar'];
+    $address = $_POST['Address'];
+    $city = $_POST['City'];
+    $postalCode = $_POST['PostalCode'];
+    $contactNumber = $_POST['Ph_num'];
+    $email = $_POST['Email'];
 
-// Pregnancy Details
-$deliveryDate = $_POST['delivery_date'];
-$lmp = $_POST['lastMdate'];
-$numPregnancies = $_POST['noOfPregnancies'];
-$numLiveBirths = $_POST['liveN'];
-$numMiscarriages = $_POST['missN'];
-$currentWeight = $_POST['wt'];
-$numAbortions = $_POST['abN'];
+    // Pregnancy Details
+    $deliveryDate = $_POST['delivery_date'];
+    $lmp = $_POST['lastMdate'];
+    $numPregnancies = $_POST['noOfPregnancies'];
+    $numLiveBirths = $_POST['liveN'];
+    $numMiscarriages = $_POST['missN'];
+    $currentWeight = $_POST['wt'];
+    $numAbortions = $_POST['abN'];
 
-// Medical History
-$existingConditions = $_POST['existing_conditions'];
-$previousComplications = $_POST['previous_conditions'];
-$currentMedications = $_POST['current_medications'];
-$allergies = $_POST['Allergies'];
-$bloodType = $_POST['blood_type'];
+    // Medical History
+    $existingConditions = $_POST['existing_conditions'];
+    $previousComplications = $_POST['previous_conditions'];
+    $currentMedications = $_POST['current_medications'];
+    $allergies = $_POST['Allergies'];
+    $bloodType = $_POST['blood_type'];
 
-// Insert into Personal Details table
-$stmt1 = $conn->prepare("INSERT INTO women_personal_details (firstName, lastName, dob, age, aadharNo, address, city, pCode, contactNumber, emailAddress) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt1->bind_param("sssiissiis", $firstName, $lastName, $dob, $age, $aadhaar, $address, $city, $postalCode, $contactNumber, $email);
-// $stmt1->execute();
-if (!$stmt1->execute()) {
-    die("Error in executing personal details query: " . mysqli_error($conn));
+    $sql1 = "INSERT INTO `women_personal_details` (`firstName`, `lastName`, `dob`, `age`, `aadharNo`, `address`, `city`, `pCode`, `contactNumber`, `emailAddress`) 
+        VALUES ('$firstName', '$lastName', '$dob', '$age', '$aadhaar', '$address', '$city', '$postalCode', '$contactNumber', '$email')";
+    $result1 = mysqli_multi_query($data, $sql1);
+
+    $sql2 = "INSERT INTO `women_pregnancy_details` (`expectedDeliveryDate`, `lmp`, `numberOfPregnancies`, `NumberOfLiveBirths`, `numberOfMiscarriages`, `numberOfAbortions`, `currentWeight`) 
+        VALUES ('$deliveryDate', '$lmp', '$numPregnancies', '$numLiveBirths', '$numMiscarriages', '$numAbortions', '$currentWeight')";
+    $result2 = mysqli_multi_query($data, $sql2);
+
+    $sql3 = "INSERT INTO `women_medical_history_details` (`existingMedicalConditions`, `previousPregnancyComplications`, `currentMedications`, `allergies`, `bloodType`)
+        VALUES ('$existingConditions', '$previousComplications', '$currentMedications', '$allergies', '$bloodType')";
+    $result3 = mysqli_query($data, $sql3);
+
+    if ($result1 && $result2 && $result3) {
+        header("Location:form2.html");
+    } else {
+        echo "failed";
+    }
 }
-
-// Insert into Pregnancy Details table
-$stmt2 = $conn->prepare("INSERT INTO women_pregnancy_details (expectedDeliveryDate, lmp, numberOfPregnancies, NumberOfLiveBirths, numberOfMiscarriages, numberOfAbortions,currentWeight ) VALUES (?, ?, ?, ?, ?, ?, ?)");
-$stmt2->bind_param("ssiii", $deliveryDate, $lmp, $numPregnancies, $numLiveBirths, $numMiscarriages, $numAbortions, $currentWeight);
-$stmt2->execute();
-
-// Insert into Medical History table
-$stmt3 = $conn->prepare("INSERT INTO women_medical_history_details (existingMedicalConditions, previousPregnancyComplications, currentMedications, allergies, bloodType) VALUES (?, ?, ?, ?, ?)");
-$stmt3->bind_param("sssss", $existingConditions, $previousComplications, $currentMedications, $allergies, $bloodType);
-$stmt3->execute();
-
-// Close the prepared statements and database connection
-$stmt1->close();
-$stmt2->close();
-$stmt3->close();
-$conn->close();
-
-// Redirect to a success page or do further processing
-// header("Location: success.php");
-exit();
 ?>
