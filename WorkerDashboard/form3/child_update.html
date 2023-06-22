@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Update Details</title>
+</head>
+<body>
+  <div class="container">
+    <div class="form-box">
+      <h2>Update Details</h2>
+      <form id="update-form" action="update.php" method="POST">
+        <!-- Personal Details Section -->
+        <fieldset>
+          <legend>Personal Details</legend>
+          <!-- Personal Details fields here -->
+        </fieldset>
+        
+        <!-- Update Details Button -->
+        <button type="submit" id="update-button" onclick="return confirm('Are you sure you want to update the details?')">Update Details</button>
+      </form>
+      
+      <!-- Progress Indicator -->
+      <div id="progress-indicator">
+        <div class="spinner"></div>
+        <p>Updating...</p>
+      </div>
+      
+      <!-- Error Message -->
+      <div id="error-message"></div>
+      
+      <!-- Download Button -->
+      <a href="download.php" class="download-button">Download as PDF</a>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
