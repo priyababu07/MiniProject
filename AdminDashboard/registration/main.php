@@ -150,148 +150,128 @@ session_start();
 // Create a database connection
 $conn = mysqli_connect("localhost", "root", "", "AganwadiWorker");
 
-// Check if the connection is successful
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Fetch all pending stock requests
-$sql = "SELECT * FROM workers";
-$result = mysqli_query($conn, $sql);
+// Process approval
+if (isset($_GET['approve'])) {
+    $workerId = $_GET['approve'];
+    $approveQuery = "SELECT * FROM worker_registration WHERE id = $workerId";
+    $approveResult = mysqli_query($conn, $approveQuery);
 
-if (mysqli_num_rows($result) > 0) {
-    // Output the stock requests in a table
-    echo "<table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Score</th>
-                <th>Place</th>
-                <th>Action</th>
-            </tr>";
+    if (mysqli_num_rows($approveResult) > 0) {
+        $row = mysqli_fetch_assoc($approveResult);
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<tr>
-                <td>" . $row['id'] . "</td>
-                <td>" . $row['name'] . "</td>
-                <td>" . $row['age'] . "</td>
-                <td>" . $row['score'] . "</td>
-                <td>" . $row['place'] . "</td>
-                <td>
-                    <form method='POST' action='" . $_SERVER['PHP_SELF'] . "'>
-                        <input type='hidden' name='request_id' value='" . $row['id'] . "'>
-                        <button type='submit' name='approve' class='approve'>Approve</button>
-                        <button type='submit' name='reject' class='reject'>Reject</button>
-                    </form>
-                </td>
-            </tr>";
-    }
+        // Insert approved worker into the worker_approval table
+        $insertQuery = "INSERT INTO worker_approval (name, score) VALUES ('" . $row['name'] . "', " . $row['score'] . ")";
+        
+        mysqli_query($conn, $insertQuery);
 
-    echo "</table>";
-} else {
-    echo "No pending stock requests.";
-}
+        $deleteQuery = "DELETE FROM worker_registration WHERE id = $workerId";
+        mysqli_query($conn, $deleteQuery);
+        
 
-// Process the approval or rejection of stock requests
-if (isset($_POST['approve']) || isset($_POST['reject'])) {
-    $requestId = $_POST['request_id'];
-    $status = isset($_POST['approve']) ? 'approved' : 'rejected';
 
-    // Update the status of the stock request using prepared statements
-    $updateSql = "UPDATE workers SET status = ? WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $updateSql);
-    mysqli_stmt_bind_param($stmt, "si", $status, $requestId);
 
-    if (mysqli_stmt_execute($stmt)) {
-        echo "<p>Stock request " . $status . " successfully.</p>";
-
-        // If the request is approved, insert it into the stock_approved table
-        if ($status === "approved") {
-            $selectSql = "SELECT * FROM workers WHERE id = ?";
-            $stmt = mysqli_prepare($conn, $selectSql);
-            mysqli_stmt_bind_param($stmt, "i", $requestId);
-            mysqli_stmt_execute($stmt);
-            $selectResult = mysqli_stmt_get_result($stmt);
-
-            if (mysqli_num_rows($selectResult) > 0) {
-                $selectRow = mysqli_fetch_assoc($selectResult);
-
-                $name = $selectRow['name'];
-                $age = $selectRow['age'];
-                $score = $selectRow['score'];
-                $place = $selectRow['place'];
-
-                // Prepare and execute the insert statement for stock_approved table
-                $insertSql = "INSERT INTO newworkers (name, age, score, place) VALUES (?, ?, ?, ?)";
-                $stmt = mysqli_prepare($conn, $insertSql);
-                mysqli_stmt_bind_param($stmt, "siss", $name, $age, $score, $place);
-
-                if (mysqli_stmt_execute($stmt)) {
-                    echo "<p>Approved submission inserted into stock_approved table.</p>";
-
-                    // Delete the approved request from the workers table
-                    $deleteSql = "DELETE FROM workers WHERE id = ?";
-                    $stmt = mysqli_prepare($conn, $deleteSql);
-                    mysqli_stmt_bind_param($stmt, "i", $requestId);
-                    mysqli_stmt_execute($stmt);
-                } else {
-                    echo "<p>Error inserting data into stock_approved table: " . mysqli_error($conn) . "</p>";
-                }
+        if (mysqli_query($conn, $insertQuery)) {
+            // Send email to the person
+           // Update with your email address
+            $to = $row['email'];
+            $subject = "Congratulations! You have been approved";
+            $message = "Dear " . $row['name'] . ",\n\nCongratulations! You have been approved to work in Anganwadi number " . $row['place'] . ". We appreciate your dedication and look forward to your contributions.\n\nBest regards,\nThe Anganwadi Team";
+            $headers = 'From: sender@example.com' . "\r\n" .
+            'Reply-To: sender@example.com' . "\r\n" .
+        '    X-Mailer: PHP/' . phpversion();
+            // Send the email
+            if (mail($to, $subject, $message, $headers)) {
+                echo "Worker details entered, approval email sent successfully, and Anganwadi information provided";
             } else {
-                echo "";
+                echo "Worker details entered, failed to send the approval email, but Anganwadi information provided";
             }
+
+            // Delete worker from the worker_registration table
+            $deleteQuery = "DELETE FROM worker_registration WHERE id = $workerId";
+            mysqli_query($conn, $deleteQuery);
         } else {
-            // If the request is rejected, delete it from the workers table
-            $deleteSql = "DELETE FROM workers WHERE id = ?";
-            $stmt = mysqli_prepare($conn, $deleteSql);
-            mysqli_stmt_bind_param($stmt, "i", $requestId);
-            if (mysqli_stmt_execute($stmt)) {
-                echo "<p>Stock request rejected and removed from the table.</p>";
-            } else {
-                echo "<p>Error deleting stock request: " . mysqli_error($conn) . "</p>";
-            }
+            echo "Error: " . $insertQuery . "<br>" . mysqli_error($conn);
         }
-        echo "<script>
-                setTimeout(function() {
-                    location.reload();
-                }, 2000); // Refresh the page after 2 seconds (2000 milliseconds)
-            </script>";
-    } else {
-        echo "<p>Error updating status: " . mysqli_error($conn) . "</p>";
     }
 }
+        
 
-// Close the database connection
-mysqli_close($conn);
+
+
+      
+  
+
+// Process rejection
+if (isset($_GET['reject'])) {
+    $workerId = $_GET['reject'];
+
+    // Delete worker from the worker_details table
+    $deleteQuery = "DELETE FROM worker_registration WHERE id = $workerId";
+    mysqli_query($conn, $deleteQuery);
+}
+
+// Retrieve worker details for the approval table
+$approvalQuery = "SELECT id, name, score FROM worker_registration ORDER BY score DESC";
+$approvalResult = mysqli_query($conn, $approvalQuery);
 ?>
 
+<!-- Display the approval table -->
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php while ($row = mysqli_fetch_assoc($approvalResult)): ?>
+      <tr>
+        <td><?php echo $row['id']; ?></td>
+        <td><?php echo $row['name']; ?></td>
+        <td><?php echo $row['score']; ?></td>
+        <td>
+          <a href="?approve=<?php echo $row['id']; ?>">Approve</a>
+          <a href="?reject=<?php echo $row['id']; ?>">Reject</a>
+          <a href="?view=<?php echo $row['id']; ?>">View Details</a>
+        </td>
+      </tr>
+    <?php endwhile; ?>
+  </tbody>
+</table>
 
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    <script>
-                    $(document).ready(function() {
-                        // Listen for click on status buttons
-                        $('.status-button').click(function() {
-                            var submissionId = $(this).data('submission-id');
-                            var status = $(this).data('status');
+<?php
+// Process viewing of worker details
+if (isset($_GET['view'])) {
+    $workerId = $_GET['view'];
+    $viewQuery = "SELECT * FROM worker_registration WHERE id = $workerId";
+    $viewResult = mysqli_query($conn, $viewQuery);
 
-                            // Send AJAX request to update the approval status
-                            $.ajax({
-                                type: 'POST',
-                                url: 'approve.php',
-                                data: { submissionId: submissionId, status: status },
-                                success: function(response) {
-                                    console.log(response);
-                                    // Handle success response if needed
-                                },
-                                error: function(error) {
-                                    console.log(error);
-                                    // Handle error gracefully if needed
-                                }
-                            });
-                        });
-                    });
-                    </script>
+    if (mysqli_num_rows($viewResult) > 0) {
+        $row = mysqli_fetch_assoc($viewResult);
+        ?>
+        <!-- Display the worker details -->
+        <h2>Worker Details</h2>
+        <p>ID: <?php echo $row['id']; ?></p>
+        <p>Name: <?php echo $row['name']; ?></p>
+        <p>Age: <?php echo $row['age']; ?></p>
+        <p>Address: <?php echo $row['address']; ?></p>
+        <p>Phone: <?php echo $row['phone']; ?></p>
+        <p>Email: <?php echo $row['email']; ?></p>
+        <p>Education Qualification: <?php echo $row['education']; ?></p>
+        <p>Test Score: <?php echo $row['score']; ?></p>
+        <p>Place: <?php echo $row['place']; ?></p>
+        <?php
+    }
+}
+
+mysqli_close($conn);
+?>
 
                 </div>
             </div>
