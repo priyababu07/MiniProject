@@ -46,14 +46,14 @@
     margin-right: 10px;
 }
 
-.chat-input button {
+/* .chat-input button {
     padding: 8px 16px;
     background-color: #128c7e;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
+} */
 
 .chat-message {
     margin-bottom: 10px;
@@ -81,13 +81,60 @@
     background-color: #ffff99;
 }
 
+.button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            padding: 5px 10px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .defect-button {
+            background-color: #ff8080;
+            color: #fff;
+        }
+
+        .available-button {
+            background-color: #99ff99;
+            color: #000;
+        }
+
+        .unavailable-button {
+            background-color: #ffff99;
+            color: #000;
+        }
+
+        
+        .message {
+            width: 150px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .defect {
+            background-color: #ff8080;
+        }
+
+        .available {
+            background-color: #99ff99;
+        }
+
+        .unavailable {
+            background-color: #ffff99;
+        }
+
     </style>
-</head>
-<body>
+
+
     
-    <!DOCTYPE html>
-<html>
-<head>
+ 
+
     <title>Chat System</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -100,41 +147,42 @@
             <!-- Chat messages will be displayed here -->
         </div>
         <div class="chat-input">
-            <select id="stock-status-select">
-                <option value="defect">Defect</option>
-                <option value="available">Available</option>
-                <option value="unavailable">Unavailable</option>
-            </select>
-            <button id="send-button">Send</button>
+            <div class="button-container">
+                <button class="button defect-button" onclick="sendMessage('defect')">Defect</button>
+                <button class="button available-button" onclick="sendMessage('available')">Available</button>
+                <button class="button unavailable-button" onclick="sendMessage('unavailable')">Unavailable</button>
+            </div>
         </div>
     </div>
 
+    <script>
+        // Get DOM elements
+        const chatMessages = document.getElementById('chat-messages');
 
+        // Send message
+        function sendMessage(stockStatus) {
+            const message = document.createElement('div');
+            message.classList.add('message', stockStatus);
 
+            switch (stockStatus) {
+                case 'defect':
+                    message.textContent = 'Defect';
+                    break;
+                case 'available':
+                    message.textContent = 'Stock is available';
+                    break;
+                case 'unavailable':
+                    message.textContent = 'Stock not available';
+                    break;
+            }
 
-    <script >
-       // Get DOM elements
-const stockStatusSelect = document.getElementById('stock-status-select');
-const sendButton = document.getElementById('send-button');
-const chatContainer = document.querySelector('.chat-container');
+            chatMessages.appendChild(message);
 
-// Send message
-function sendMessage() {
-    const stockStatus = stockStatusSelect.value;
-
-    if (stockStatus === 'defect') {
-        chatContainer.style.backgroundColor = '#ff8080';
-    } else if (stockStatus === 'available') {
-        chatContainer.style.backgroundColor = '#99ff99';
-    } else if (stockStatus === 'unavailable') {
-        chatContainer.style.backgroundColor = '#ffff99';
-    }
-}
-
-// Event listener for send button click
-sendButton.addEventListener('click', sendMessage);
-
-
+            // Scroll to the bottom of the chat container
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     </script>
-</body>
+    </body>
 </html>
+
+
