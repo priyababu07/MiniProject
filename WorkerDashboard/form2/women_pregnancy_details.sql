@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2023 at 01:28 PM
+-- Generation Time: Jun 24, 2023 at 08:25 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -39,6 +39,14 @@ CREATE TABLE `women_pregnancy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `women_pregnancy_details`
+--
+
+INSERT INTO `women_pregnancy_details` (`woman_id`, `expectedDeliveryDate`, `lmp`, `numberOfPregnancies`, `NumberOfLiveBirths`, `numberOfMiscarriages`, `numberOfAbortions`, `currentWeight`) VALUES
+(1, '2023-09-15', '2022-06-15', 0, 0, 0, 0, 99),
+(2, '2023-06-30', '2022-08-30', 0, 0, 0, 0, 99);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -56,7 +64,7 @@ ALTER TABLE `women_pregnancy_details`
 -- AUTO_INCREMENT for table `women_pregnancy_details`
 --
 ALTER TABLE `women_pregnancy_details`
-  MODIFY `woman_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `woman_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
