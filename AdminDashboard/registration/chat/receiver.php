@@ -1,9 +1,35 @@
+<?php
+// Database connection details
+$host = 'localhost';
+$dbname = 'chat';
+$username = 'root';
+$password = '';
+
+try {
+    // Create a new PDO instance
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+
+    // Set PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Fetch all messages from the database
+    $stmt = $pdo->query("SELECT * FROM messages ORDER BY created_at DESC");
+    $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Close the database connection
+    $pdo = null;
+} catch (PDOException $e) {
+    // Handle any database errors
+    echo "Error: " . $e->getMessage();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chat System</title>
+    <title>Chat System - Receiver</title>
     <style>
-       body {
+          body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
@@ -128,68 +154,21 @@
         .unavailable {
             background-color: #ffff99;
         }
-
     </style>
-
-
-    
- 
-
-    <title>Chat System</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h2>Chat System</h2>
+            <h2>Chat System - Receiver</h2>
         </div>
         <div class="chat-messages" id="chat-messages">
-            <!-- Chat messages will be displayed here -->
-        </div>
-        <div class="chat-input">
-            <div class="button-container">
-                <button class="button defect-button" onclick="sendMessage('defect')">Defect</button>
-                <button class="button available-button" onclick="sendMessage('available')">Available</button>
-                <button class="button unavailable-button" onclick="sendMessage('unavailable')">Unavailable</button>
-            </div>
+            <!-- Display the messages -->
+            <?php foreach ($messages as $message): ?>
+                <div class="message <?php echo $message['message']; ?>">
+                    <?php echo $message['message']; ?>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
-
-    <script>
-        // Get DOM elements
-        const chatMessages = document.getElementById('chat-messages');
-
-        // Send message
-        function sendMessage(stockStatus) {
-            const message = document.createElement('div');
-            message.classList.add('message', stockStatus);
-
-            switch (stockStatus) {
-                case 'defect':
-                    message.textContent = 'Defect';
-                    break;
-                case 'available':
-                    message.textContent = 'Stock is available';
-                    break;
-                case 'unavailable':
-                    message.textContent = 'Stock not available';
-                    break;
-            }
-
-            chatMessages.appendChild(message);
-
-            // Scroll to the bottom of the chat container
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-
-            // Send the message to the server
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'send_message.php', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr.send(`message=${stockStatus}`);
-        }
-    </script>
-    </body>
+</body>
 </html>
-
-
