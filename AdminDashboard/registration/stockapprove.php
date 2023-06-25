@@ -108,6 +108,17 @@
             background-color: #d9534f;
             color: #fff;
         }
+        .logo{
+	margin: 0px;
+	margin-left: 28px;
+    font-weight: 30px;
+    color: rgb(224, 183, 20);
+    margin-bottom: 30px;
+    
+}
+.logo span{
+	color: #9c9c9c;
+}
     </style>
     <script>
         // JavaScript function to auto-refresh the page
@@ -120,7 +131,7 @@
 </head>
 <body>
     <div class="navbar">
-        <h1>Stock Approval</h1>
+    <p class="logo"><span>Paa</span>lan</p>
     </div>
 
     <div class="sidebar">
@@ -132,7 +143,7 @@
     </div>
 
     <div class="main-content">
-        <h1>Stock Request Approval</h1>
+        
         <?php
     // Create a database connection
     $conn = mysqli_connect("localhost", "root", "", "Stock");

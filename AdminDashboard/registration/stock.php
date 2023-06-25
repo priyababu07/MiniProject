@@ -174,6 +174,16 @@
             outline: none;
             box-shadow: 0 0 5px #ddd;
         }
+        .logo{
+	margin: 0px;
+	margin-left: 28px;
+    font-weight: bold;
+    color: rgb(224, 183, 20);
+    margin-bottom: 30px;
+}
+.logo span{
+	color: #9c9c9c;
+}
     </style>
     <script>
         // Function to toggle the visibility of the defect details input field
@@ -191,19 +201,18 @@
 </head>
 <body>
     <div class="navbar">
-        <h1>Paalan</h1>
+    
     </div>
 
     <div class="sidebar">
         <ul>
             <li><a href="main.php">Home</a></li>
-            <li><a href="#">Stocks</a></li>
-            <li><a href="#">Orders</a></li>
+            
         </ul>
     </div>
 
     <div class="main-content">
-        <h1>Stock Request</h1>
+    <p class="logo"><span>Paa</span>lan</p>
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <label for="stock_item">Stock Item:</label>
             <input type="text" id="stock_item" name="stock_item" required>
@@ -227,6 +236,3 @@
     </div>
 </body>
 </html>
-
-
-

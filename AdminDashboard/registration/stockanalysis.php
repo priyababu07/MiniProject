@@ -9,13 +9,63 @@
             margin: 0;
             padding: 0;
         }
-
+        
+    
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+        }
+    
+        .navbar h1 {
+            margin: 0;
+        }
+    
+        .sidebar {
+            width: 180px;
+            background-color: #f4f4f4;
+            padding: 15px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+        }
+    
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+    
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .sidebar a:hover {
+            background-color: #555;
+            color: #fff;
+        }
         .chart-container {
-            width: 400px;
+            width: 80%;
+            max-width: 800px;
             margin: 20px auto;
             background-color: #fff;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 70px;
+            box-sizing:box;
         }
 
         .chart-title {
@@ -25,58 +75,94 @@
             margin-bottom: 10px;
         }
 
-        .chart-pie {
-            width: 300px;
+        .chart-bar {
+            display: flex;
+            align-items: flex-end;
             height: 300px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .chart-pie::before {
-            content: "";
-            position: absolute;
-            top: calc(50% - 150px);
-            left: calc(50% - 150px);
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
             border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
-        .chart-slice {
-            position: absolute;
-            top: calc(50% - 150px);
-            left: calc(50% - 150px);
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            clip: rect(0, 150px, 300px, 0);
-            transform-origin: center center;
+        .chart-bar-column {
+            flex-grow: 1;
+            margin-right: 10px;
+            background-color: #2196F3;
+            color: #fff;
+            text-align: center;
+            transition: height 0.3s ease;
+        }
+
+        .chart-bar-column:hover {
+            background-color: #1565C0;
         }
 
         .chart-label {
-            position: absolute;
+            margin-top: 5px;
+            text-align: center;
             font-size: 12px;
             font-weight: bold;
-            text-align: center;
-            top: 50%;
-            left: 50%;
-            width: 100px;
-            transform: translate(-50%, -50%);
         }
 
-        .chart-label span {
-            display: block;
-            font-size: 14px;
-            font-weight: normal;
-            margin-bottom: 5px;
+        .chart-axis-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
         }
+
+        .chart-axis-label {
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            left: -30px;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            white-space: nowrap;
+        }
+
+        .x-axis-label {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .y-axis-label {
+            text-align: center;
+    margin-left: 10px;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    left: -30px;
+    top: 50%;
+
+        }
+        .logo{
+	margin: 0px;
+	margin-left: 28px;
+    font-weight: 400px;
+    font-size:20px;
+    color: rgb(224, 183, 20);
+    margin-bottom: 30px;
+}
+.logo span{
+	color: #9c9c9c;
+}
     </style>
 </head>
 <body>
+<div class="navbar">
+    <p class="logo"><span>Paa</span>lan</p>
+    </div>
+
+    <div class="sidebar">
+        <ul>
+            <li><a href="main.php">Home</a></li>
+            
+        </ul>
+    </div>
     <div class="chart-container">
-        <h2 class="chart-title">Quantity Consumed in a Month (Pie Chart)</h2>
-        <div class="chart-pie">
+        <h2 class="chart-title">Quantity Consumed in a Month (Bar Graph)</h2>
+        <div class="chart-bar">
             <?php
             // Create a database connection
             $conn = mysqli_connect("localhost", "root", "", "Stock");
@@ -95,7 +181,7 @@
             while ($row = mysqli_fetch_assoc($result)) {
                 $month = $row['month'];
                 $quantity = intval($row['total_quantity']);
-                $data[] = [$month, $quantity];
+                $data[$month] = $quantity;
             }
 
             // Close the database connection
@@ -103,26 +189,22 @@
             ?>
 
             <?php
-            $total = array_sum(array_column($data, 1));
-            $startAngle = 0;
-
-            foreach ($data as $item) {
-                $percentage = ($item[1] / $total) * 100;
-                $endAngle = $startAngle + $percentage * 3.6;
-
-                $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-
-                echo '<div class="chart-slice" style="background-color: ' . $color . '; transform: rotate(' . $startAngle . 'deg)"></div>';
-                echo '<div class="chart-label" style="transform: rotate(' . (($startAngle + $endAngle) / 2) . 'deg)">';
-                echo '<span>' . $item[0] . '</span>';
-                echo '<span>' . $item[1] . '</span>';
-                echo '<span>' . round($percentage, 1) . '%</span>';
+            foreach ($data as $month => $quantity) {
+                $barHeight = ($quantity / max($data)) * 100;
+                echo '<div class="chart-bar-column" style="height: ' . $barHeight . '%">';
+                echo '<span class="chart-label">' . $month . '</span>';
+                echo '<span class="chart-label">' . $quantity . '</span>';
                 echo '</div>';
-
-                $startAngle = $endAngle;
             }
             ?>
+        </div>
+
+        <div class="chart-axis-labels">
+            <span class="y-axis-label">Quantity</span>
+            <span class="x-axis-label">Month</span>
         </div>
     </div>
 </body>
 </html>
+
+

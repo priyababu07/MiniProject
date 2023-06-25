@@ -112,7 +112,7 @@ input[type="submit"]:hover {
         $panchayath	 = $_POST["panchayath"];
 
         // Create a database connection
-        $conn = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+        $conn = mysqli_connect("localhost", "root", "", "Paalan");
 
         // Check if the connection is successful
         if (!$conn) {

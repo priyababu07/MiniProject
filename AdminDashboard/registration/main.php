@@ -16,6 +16,53 @@ session_start();
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+  .btn-approve {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+    margin-right: 10px;
+  }
+
+  .btn-approve:hover {
+    transform: scale(1.1);
+  }
+
+  .btn-reject {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: red;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+    margin-right: 10px;
+  }
+
+  .btn-reject:hover {
+    transform: scale(1.1);
+  }
+  .btn-view {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:yellow;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+    margin-right: 10px;
+  }
+
+  .btn-view:hover {
+    transform: scale(1.1);
+  }
+  
+</style>
+
 </head>
 <body>
     <div id="mySidenav" class="sidenav">
@@ -25,7 +72,7 @@ session_start();
         <a href="pgw.php"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Preganant Women Details</a>
         <a href="child.php"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Child Detail</a>
         <a href="stockapprove.php"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Stock Request</a>
-        <a href="#"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Accounts</a>
+        <a href="stockanalysis.php"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Stock Analysis</a>
         
     </div>
     <div id="main">
@@ -60,10 +107,10 @@ session_start();
         <div class="col-div-3">
             <div class="box">
             <?php
-        $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+        $con = mysqli_connect("localhost", "root", "", "Paalan");
 
         // Execute the query
-        $sql = "SELECT COUNT(*) AS total_count FROM AGW";
+        $sql = "SELECT COUNT(*) AS total_count FROM worker_approval";
         $result = $con->query($sql);
 
         if ($result === false) {
@@ -81,10 +128,10 @@ session_start();
         <div class="col-div-3">
     <div class="box">
         <?php
-        $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+        $con = mysqli_connect("localhost", "root", "", "Paalan");
 
         // Execute the query
-        $sql = "SELECT COUNT(*) AS total_count FROM pregnant_women";
+        $sql = "SELECT COUNT(*) AS total_count FROM women_personal_details";
         $result = $con->query($sql);
 
         if ($result === false) {
@@ -103,10 +150,11 @@ session_start();
         <div class="col-div-3">
             <div class="box">
             <?php
-        $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+        $con = mysqli_connect("localhost", "root", "", "Paalan");
 
         // Execute the query
-        $sql = "SELECT COUNT(*) AS total_count FROM pregnant_women";
+        $sql = "SELECT COUNT(*) AS total_count FROM women_personal_details WHERE delivered = 'YES'";
+
         $result = $con->query($sql);
 
         if ($result === false) {
@@ -124,10 +172,10 @@ session_start();
         <div class="col-div-3">
             <div class="box">
             <?php
-        $con = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+        $con = mysqli_connect("localhost", "root", "", "Paalan");
 
         // Execute the query
-        $sql = "SELECT COUNT(*) AS total_count FROM Child";
+        $sql = "SELECT COUNT(*) AS total_count FROM child_details";
         $result = $con->query($sql);
 
         if ($result === false) {
@@ -150,7 +198,7 @@ session_start();
                     <p>Approval Board </p>
                     <?php
 // Create a database connection
-$conn = mysqli_connect("localhost", "root", "", "AganwadiWorker");
+$conn = mysqli_connect("localhost", "root", "", "Paalan");
 
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -238,42 +286,15 @@ $approvalResult = mysqli_query($conn, $approvalQuery);
         <td><?php echo $row['name']; ?></td>
         <td><?php echo $row['score']; ?></td>
         <td>
-          <a href="?approve=<?php echo $row['id']; ?>">Approve</a>
-          <a href="?reject=<?php echo $row['id']; ?>">Reject</a>
-          <a href="?view=<?php echo $row['id']; ?>">View Details</a>
+          <a href="?approve=<?php echo $row['id']; ?>" class="btn-approve">Approve</a>
+          <a href="?reject=<?php echo $row['id']; ?>" class="btn-reject">Reject</a>
+          <a href="worker_details.php?id=<?php echo $row['id']; ?>" class="btn-view" >View Details</a>
         </td>
       </tr>
     <?php endwhile; ?>
   </tbody>
 </table>
 
-<?php
-// Process viewing of worker details
-if (isset($_GET['view'])) {
-    $workerId = $_GET['view'];
-    $viewQuery = "SELECT * FROM worker_registration WHERE id = $workerId";
-    $viewResult = mysqli_query($conn, $viewQuery);
-
-    if (mysqli_num_rows($viewResult) > 0) {
-        $row = mysqli_fetch_assoc($viewResult);
-        ?>
-        <!-- Display the worker details -->
-        <h2>Worker Details</h2>
-        <p>ID: <?php echo $row['id']; ?></p>
-        <p>Name: <?php echo $row['name']; ?></p>
-        <p>Age: <?php echo $row['age']; ?></p>
-        <p>Address: <?php echo $row['address']; ?></p>
-        <p>Phone: <?php echo $row['phone']; ?></p>
-        <p>Email: <?php echo $row['email']; ?></p>
-        <p>Education Qualification: <?php echo $row['education']; ?></p>
-        <p>Test Score: <?php echo $row['score']; ?></p>
-        <p>Place: <?php echo $row['place']; ?></p>
-        <?php
-    }
-}
-
-mysqli_close($conn);
-?>
 
                 </div>
             </div>
