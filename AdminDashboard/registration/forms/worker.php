@@ -109,7 +109,7 @@ input[type="submit"]:hover {
         $email = $_POST["email"];
         $education = $_POST["education"];
         $score = $_POST["score"];
-        $place = $_POST["place"];
+        $panchayath	 = $_POST["panchayath"];
 
         // Create a database connection
         $conn = mysqli_connect("localhost", "root", "", "AganwadiWorker");
@@ -120,12 +120,12 @@ input[type="submit"]:hover {
         }
 
         // Prepare the SQL statement to insert data into the database
-        $sql = "INSERT INTO worker_registration (name, age, address, phone, email, education, score, place)
-        VALUES ('$name', '$age', '$address', '$phone', '$email', '$education', '$score', '$place')";
+        $sql = "INSERT INTO worker_registration (name, age, address, phone, email, education, score, 	panchayath)
+        VALUES ('$name', '$age', '$address', '$phone', '$email', '$education', '$score', '$panchayath')";
 
         // Execute the SQL statement
         if (mysqli_query($conn, $sql)) {
-            echo "Lactating women details inserted successfully.";
+            echo "";
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
@@ -160,8 +160,8 @@ input[type="submit"]:hover {
   <label for="score">Test Score:</label>
   <input type="number" id="score" name="score" required>
 
-  <label for="place">Place:</label>
-  <input type="text" id="place" name="place" required>
+  <label for="panchayath">panchayath:</label>
+  <input type="text" id="	panchayath" name="panchayath" required>
   
 
   <br>
@@ -181,10 +181,10 @@ input[type="submit"]:hover {
     var email = document.getElementById("email").value;
     var education = document.getElementById("education").value;
     var score = document.getElementById("score").value;
-    var place = document.getElementById("place").value;
+    var panchayath = document.getElementById("panchayath").value;
 
     // Perform form validation and submission
-    if (name && age && address && phone && email && education && score && place) {
+    if (name && age && address && phone && email && education && score && panchayath) {
       // Form is valid, do something with the data (e.g., submit to server)
       console.log("Registration successful!");
       console.log("Name: " + name);
@@ -194,7 +194,7 @@ input[type="submit"]:hover {
       console.log("Email: " + email);
       console.log("Education: " + education);
       console.log("Score: " + score);
-      console.log("Place: " + place);
+      console.log("panchayath	: " + panchayath);
      
       // Clear form fields
       document.getElementById("registrationForm").reset();
