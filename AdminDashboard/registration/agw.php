@@ -1,5 +1,5 @@
 <?php
-require_once 'config/db.php';
+require_once 'config/imp.php';
 require_once 'config/functions.php';
 
 $result = display_data();
@@ -154,22 +154,20 @@ $result = display_data();
                                     <thead>
                                         <tr>
                                         <th>Id</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Age</th>
-                                        <th>Delete</th>
+                                        <th>name</th>
+                                        <th>score</th>
+                                       
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                                             <tr>
                                             <td><?php echo $row['id']; ?></td>
-                                            <td><?php echo $row['username']; ?></td>
-                                            <td><?php echo $row['email']; ?></td>
-                                            <td><?php echo $row['age']; ?></td>
-                                            <td><a href="#" class="btn btn-danger">Delete</a></td>
-                                                <!-- <td><a href="#" class="btn btn-primary">Edit</a></td>
-                                                <td><a href="#" class="btn btn-danger">Delete</a></td> -->
+                                            <td><?php echo $row['name']; ?></td>
+                                            <td><?php echo $row['score']; ?></td>
+                                            
+                                            
+                                              
                                             </tr>
                                         <?php } ?>
                                     </tbody>
