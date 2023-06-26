@@ -1,9 +1,17 @@
+<?php
+session_start();
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Chat System</title>
     <style>
-       body {
+        body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
@@ -11,7 +19,7 @@
 }
 
 .chat-container {
-    max-width: 400px;
+    max-width: 600px;
     margin: 20px auto;
     background-color: #fff;
     border-radius: 5px;
@@ -46,22 +54,37 @@
     margin-right: 10px;
 }
 
-/* .chat-input button {
+.chat-input input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.chat-input .send-button {
     padding: 8px 16px;
     background-color: #128c7e;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-} */
+}
 
 .chat-message {
     margin-bottom: 10px;
+    background-color: #000;
+    width: 150px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
 }
 
 .sender {
-    text-align: right;
-    background-color: #ff8080;
+    text-align: left;
+    background-color: #0d0c0c;
+    color: white;
+
 }
 
 .receiver {
@@ -82,61 +105,54 @@
 }
 
 .button-container {
-            display: flex;
-            align-items: center;
-        }
+    display: flex;
+    align-items: center;
+}
 
-        .button {
-            padding: 5px 10px;
-            margin-right: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        .defect-button {
-            background-color: #ff8080;
-            color: #fff;
-        }
+.defect-button {
+    background-color: #ff8080;
+    color: #fff;
+}
 
-        .available-button {
-            background-color: #99ff99;
-            color: #000;
-        }
+.available-button {
+    background-color: #99ff99;
+    color: #000;
+}
 
-        .unavailable-button {
-            background-color: #ffff99;
-            color: #000;
-        }
+.unavailable-button {
+    background-color: #ffff99;
+    color: #000;
+}
 
-        
-        .message {
-            width: 150px;
-            margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 5px;
-        }
+.message {
+    width: 150px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+}
 
-        .defect {
-            background-color: #ff8080;
-        }
+.defect {
+    background-color: #ff8080;
+}
 
-        .available {
-            background-color: #99ff99;
-        }
+.available {
+    background-color: #99ff99;
+}
 
-        .unavailable {
-            background-color: #ffff99;
-        }
+.unavailable {
+    background-color: #ffff99;
+}
+
 
     </style>
-
-
-    
- 
-
-    <title>Chat System</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <div class="chat-container">
@@ -152,12 +168,15 @@
                 <button class="button available-button" onclick="sendMessage('available')">Available</button>
                 <button class="button unavailable-button" onclick="sendMessage('unavailable')">Unavailable</button>
             </div>
+            <input type="text" id="message-input" placeholder="Type your message" required>
+            <button class="button send-button" onclick="sendMessageFromInput()">Send</button>
         </div>
     </div>
 
     <script>
         // Get DOM elements
         const chatMessages = document.getElementById('chat-messages');
+        const messageInput = document.getElementById('message-input');
 
         // Send message
         function sendMessage(stockStatus) {
@@ -180,16 +199,36 @@
 
             // Scroll to the bottom of the chat container
             chatMessages.scrollTop = chatMessages.scrollHeight;
-            
 
-            // Send the message to the server
+            // Send the message to the server (modify the URL and request as per your needs)
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'send_message.php', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.send(`message=${stockStatus}`);
         }
+
+        
+           // Send message from input box
+           function sendMessageFromInput() {
+            const inputMessage = messageInput.value.trim();
+            if (inputMessage !== '') {
+                displayChatMessage(inputMessage, 'sender');
+                messageInput.value = '';
+
+                // Scroll to the bottom of the chat container
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        // Display chat message
+        function displayChatMessage(message, className) {
+            const chatMessage = document.createElement('div');
+            chatMessage.classList.add('chat-message', className);
+            chatMessage.textContent = message;
+            chatMessages.appendChild(chatMessage);
+        }
+        
+       
     </script>
-    </body>
+</body>
 </html>
-
-
