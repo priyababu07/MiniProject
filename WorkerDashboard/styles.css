@@ -238,7 +238,7 @@
   .graph-box {
     width: 500px;
     height: 400px;
-    background-color: #222; 
+    /* background-color: #222;  */
     margin-top: 30px; /* Adjust the margin value as needed */
     margin-left: 60px;
     border-radius: 10px;
@@ -251,7 +251,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #222;
+    /* background-color: #bea1a1; */
   }
   
   .canvas-container canvas {
