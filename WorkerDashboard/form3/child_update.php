@@ -35,6 +35,7 @@ include 'connect.php';
           <th scope="col">Age</th>
           <th scope="col">Date of birth</th>
           <th scope="col">Mother Id</th>
+          <th scope="col">Operations</th>
         </tr>
       </thead>
       <tbody>

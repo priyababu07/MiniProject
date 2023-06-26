@@ -1,13 +1,19 @@
 <?php
 include 'connect.php';
 $id=$_GET['childupdateid'];
-$sql="select * from `child_details` where woman_id=$id";
+$sql="select * from `child_details` where child_id=$id";
 $result=mysqli_query($con,$sql);
 $row=mysqli_fetch_assoc($result);
 $woman_id = $row['woman_id'];
 $child_name = $row['child_name'];
 $child_age = $row['child_age'];
 $child_dob = $row['child_dob'];
+$father_name = $row['father_name'];
+$mother_name = $row['mother_name'];
+$no_of_family_members = $row['no_of_family_members'];
+$child_guardian_phone_no = $row['child_guardian_phone_no'];
+$height = $row['height'];
+$weight = $row['weight'];
 
 if(isset($_POST['submit'])){
     $child_name = $_POST['childName'];
@@ -18,10 +24,12 @@ if(isset($_POST['submit'])){
     $mother_name = $_POST['childMName'];
     $no_of_family_members = $_POST['familyMembersNo'];
     $child_guardian_phone_no = $_POST['Guardian_no'];
+    $height = $_POST['height'];
+    $weight = $_POST['weight'];
 
     $sql="update `child_details` 
-          set child_id='$id',woman_id='$mother_id',child_name='$firstName',child_age='$lastName',child_dob='$dob',father_name='$age',mother_name='$aadhaar',
-          no_of_family_members='$address',child_guardian_phone_no='$city'
+          set child_id='$id',woman_id='$mother_id',child_name='$child_name',child_age='$child_age',child_dob='$child_dob',father_name='$father_name',mother_name='$mother_name',
+          no_of_family_members='$no_of_family_members',child_guardian_phone_no='$child_guardian_phone_no',height='$height',weight='$weight'
           where child_id=$id";
     $result = mysqli_query($con, $sql);
 
@@ -109,62 +117,90 @@ if(isset($_POST['submit'])){
 
   <div class="container">
     <div class="form-container">
-      <h2>Registration Form</h2>
+      <h2>Child Update Form</h2>
       
-      <form action="form1.php" method="POST" id="registrationForm" onsubmit="return validateForm()">
+      <form method="POST" id="childUpdateForm">
         <div class="form-row">
           <div class="col">
             <div class="form-group">
               <label for="name">Mother id:</label>
-              <input type="text" class="form-control" id="m_id" name="mother_id" placeholder="Enter Mother's id no" required>
+              <input type="text" class="form-control" id="m_id" name="mother_id" placeholder="Enter Mother's id no"  value=<?php echo $woman_id;?>>
             </div>
           </div>
           <div class="col">
             <div class="form-group">
               <label for="name">Child Name:</label>
-              <input type="text" class="form-control" id="name" name="childName" placeholder="Enter your name" required>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="age">Child Age:</label>
-              <input type="number" class="form-control" id="age" name="childAge" placeholder="Enter your age" required>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="dob">Date of Birth:</label>
-              <input type="date" class="form-control" id="dob" name="childDOB" required>
+              <input type="text" class="form-control" id="name" name="childName" placeholder="Enter your name" value=<?php echo $child_name;?>>
             </div>
           </div>
         </div>
+        <!-- second part -->
+        <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+              <label for="age">Child Age:</label>
+              <input type="number" class="form-control" id="age" name="childAge" placeholder="Enter your age" value=<?php echo $child_age;?>>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+              <label for="dob">Date of Birth:</label>
+              <input type="date" class="form-control" id="dob" name="childDOB" value=<?php echo $child_dob;?>>
+            </div>
+        </div>
+        </div>
+        <!-- third part -->
         <div class="form-row">
           <div class="col">
             <div class="form-group">
               <label for="fatherName">Father's Name:</label>
-              <input type="text" class="form-control" id="fatherName" name="childFName" placeholder="Enter your father's name" required>
+              <input type="text" class="form-control" id="fatherName" name="childFName" placeholder="Enter your father's name" value=<?php echo $father_name;?>>
             </div>
           </div>
-        <div class="form-row">
           <div class="col">
-            <div class="form-group">
-              <label for="motherName">Mother's Name:</label>
-              <input type="text" class="form-control" id="motherName" name="childMName" placeholder="Enter your mother's name" required>
+              <div class="form-group">
+                <label for="motherName">Mother's Name:</label>
+                <input type="text" class="form-control" id="motherName" name="childMName" placeholder="Enter your mother's name" value=<?php echo $mother_name;?>>
+              </div>
             </div>
+        </div>
+
+        <!-- fourth part -->
+        <div class="form-row">
+              <div class="col">
+                  <div class="form-group">
+                      <label for="phone">Child Guardian Phone Number:</label>
+                      <input type="tel" class="form-control" id="phone" name="Guardian_no" placeholder="Enter your phone number" value=<?php echo $no_of_family_members;?>>
+                  </div>
+              </div>
+              <div class="col">
+                  <div class="form-group">
+                      <label for="familyMembers">Number of Family Members:</label>
+                      <input type="number" class="form-control" id="familyMembers" name="familyMembersNo" placeholder="Enter the number of family members" value=<?php echo $child_guardian_phone_no;?>>
+                  </div>
+              </div>
+        </div>
+
+          <!-- last part -->
+          <div class="form-row">
+          <div class="col">
+              <div class="form-group">
+                  <label for="height">Child Height:</label>
+                  <input type="number" class="form-control" id="height" name="height" placeholder="Enter child height" required value=<?php echo $height;?>>
+              </div>
           </div>
-        <div class="form-group">
-          <label for="phone">Child Guardian Phone Number:</label>
-          <input type="tel" class="form-control" id="phone" name="Guardian_no" placeholder="Enter your phone number" required>
+          <div class="col">
+                <div class="form-group">
+                    <label for="weight">Child weight:</label>
+                    <input type="number" class="form-control" id="weight" name="weight" placeholder="Enter child weight" required value=<?php echo $weight;?>>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="familyMembers">Number of Family Members:</label>
-          <input type="number" class="form-control" id="familyMembers" name="familyMembersNo" placeholder="Enter the number of family members" required>
+
+        <button type="submit" class="btn btn-primary" name="submit">Update</button>
+
         </div>
-        <div class="form-group">
-          <label for="income">Annual Income:</label>
-          <input type="text" class="form-control" id="income" name="annualIncome" placeholder="Enter your annual income" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        
       </form>
     </div>
   </div>

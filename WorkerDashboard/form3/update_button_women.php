@@ -14,6 +14,7 @@ $city=$row['city'];
 $code=$row['pCode'];
 $number=$row['contactNumber'];
 $email=$row['emailAddress'];
+
 if(isset($_POST['submit'])){
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
@@ -59,7 +60,7 @@ if(isset($_POST['submit'])){
   }
 
   header {
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; 
     padding: 20px;
   }
 
@@ -105,9 +106,18 @@ if(isset($_POST['submit'])){
 </style>
 </head>
 <body>
+  <header>
+    <div class="top-section">
+      <div class="site-name">
+        <h1>PAALAN</h1>
+        <h2 class="subheading">WOMEN DETAILS</h2>
+      </div>
+    </div>
+  </header>
 <div class="container">
     <div class="form-container">
-      <h2>Registration Form</h2>
+      <h2>Women Update Form</h2>
+
       <form id="PregnantWomenRegistrationForm" method="POST">
         <!-- Personal Details -->
         <h4>Personal Details</h4>
