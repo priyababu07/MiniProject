@@ -38,7 +38,8 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($conn, $sql);
     if ($result) {
         header("Location:form1.html");
-    } else {
+    } 
+    else {
         echo "failed";
     }
 }

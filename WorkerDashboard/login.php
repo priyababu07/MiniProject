@@ -2,21 +2,19 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    include("php/config.php");
+    include("../WorkerDashboard/form3/connect.php");
 
-    $email = mysqli_real_escape_string($con, $_POST['email']);
+    $username = mysqli_real_escape_string($con, $_POST['username']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
 
-    $result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email'") or die("Select Error: " . mysqli_error($con));
+    $result = mysqli_query($con, "SELECT * FROM worker_credentials WHERE username='$username'") or die("Select Error: " . mysqli_error($con));
     $row = mysqli_fetch_assoc($result);
 
-    if ($row && $row['PASSWORD'] === $password) {
-        $_SESSION['valid'] = $row['Email'];
+    if ($row && $row['password'] === $password) {
+        $_SESSION['valid'] = $row['username'];
         $_SESSION['username'] = $row['Username'];
-        $_SESSION['age'] = $row['Age'];
-        $_SESSION['id'] = $row['Id'];
 
-        header("Location: main.php");
+        header("Location: index.html");
         exit;
     } else {
         $error = "Wrong Username or Password.";
@@ -37,6 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
+    <a href="../LandingPage/index1.html"><img src="icon.jpg" alt="PAALAN Icon" style="width: 24px; height: 24px; position: absolute; top: 10px; left: 10px;"></a>
+
     <div class="container">
         <div class="box form-box">
             <?php if (isset($error)) : ?>
@@ -48,8 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <header>Login</header>
                 <form action="" method="post">
                     <div class="field input">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" id="email" required>
+                        <label for="username">username</label>
+                        <input type="text" name="username" id="username" required>
                     </div>
                     <div class="field input">
                         <label for="password">Password</label>
