@@ -60,7 +60,7 @@ function handleMessage($message) {
         // Scheme found, generate the response
         $response = "Scheme: " . $scheme['scheme_name'] . "\n";
         $response .= "Eligibility: " . $scheme['eligibility'] . "\n";
-        $response .= "Description: " . $scheme['description'];
+        $response .= "\n Description: " . $scheme['description'] . "\n";
 
         return $response;
     } else {
@@ -340,14 +340,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     <style>
 
 .chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+           position: fixed;
+            bottom: 100px;
+            right: 5px;
             background-color: #f4f4f4;
             border-radius: 5px;
             padding: 20px;
             display: none; /* Hide the chat container by default */
-            z-index: 9999;
+            z-index: 1000;
+            width:400px;
         }
 
         .chat-container h2 {
