@@ -73,6 +73,7 @@ session_start();
         <a href="child.php"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Child Detail</a>
         <a href="stockapprove.php"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Stock Request</a>
         <a href="stockanalysis.php"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Stock Analysis</a>
+        <a href="chat/text.php"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Paalan Chat</a>
         
     </div>
     <div id="main">
