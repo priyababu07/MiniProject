@@ -94,13 +94,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
 
         .chat-container {
             position: fixed;
-            bottom: 20px;
+            bottom: 100px;
             right: 20px;
             background-color: #f4f4f4;
             border-radius: 5px;
             padding: 20px;
             display: none; /* Hide the chat container by default */
-            z-index: 9999;
+            z-index: 1000;
+            width:200px;
         }
 
         .chat-container h2 {
@@ -151,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 60px;
+            width: 70px;
             height: 60px;
             border-radius: 50%;
             background-color: #4CAF50;
