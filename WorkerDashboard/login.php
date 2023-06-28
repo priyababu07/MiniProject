@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-    <a href="../LandingPage/index1.html"><img src="icon.jpg" alt="PAALAN Icon" style="width: 24px; height: 24px; position: absolute; top: 10px; left: 10px;"></a>
+    <a href="../LandingPage/index1.php"><img src="icon.jpg" alt="PAALAN Icon" style="width: 24px; height: 24px; position: absolute; top: 10px; left: 10px;"></a>
 
     <div class="container">
         <div class="box form-box">
