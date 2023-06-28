@@ -122,6 +122,8 @@
 
         // Fetch data and draw the chart initially
         fetchData();
+
+        
     </script>
 
     <?php
@@ -143,8 +145,13 @@
 
         $conn->close();
 
-        echo '<script>var stockData = ' . json_encode($data) . ';</script>';
+        echo '<script>var stockData = ' . json_encode($data) . ';
+        
+        
+        </script>';
     ?>
+
+   
 </body>
 </html>
 

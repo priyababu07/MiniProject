@@ -9,12 +9,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email'") or die("Select Error: " . mysqli_error($con));
     $row = mysqli_fetch_assoc($result);
-
+    
     if ($row && $row['PASSWORD'] === $password) {
         $_SESSION['valid'] = $row['Email'];
         $_SESSION['username'] = $row['Username'];
         $_SESSION['age'] = $row['Age'];
         $_SESSION['id'] = $row['Id'];
+        
+        $_SESSION['chat_username'] = $row['Username'];
+       
 
         header("Location: main.php");
         exit;
@@ -43,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class='message'>
                     <p><?php echo $error; ?></p>
                 </div><br>
-                <a href='/LandingPage/index1.php'><button class='btn'>Go Back</button></a>
+                <a href='login.php'><button class='btn'>Go Back</button></a>
             <?php else : ?>
                 <header>Login</header>
                 <form action="" method="post">

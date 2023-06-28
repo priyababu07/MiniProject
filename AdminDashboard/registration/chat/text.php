@@ -1,14 +1,39 @@
 <?php
 session_start();
 
+$chat_username = $_SESSION['username'];
 
+// Connect to the database (replace with your own credentials)
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "registration";
+
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Prepare the SQL statement to insert the username
+$stmt = $conn->prepare("INSERT INTO messages (sender) VALUES (?)");
+$stmt->bind_param("s", $chat_username);
+$stmt->execute();
+
+// Close the statement
+$stmt->close();
+
+// Close the database connection
+$conn->close();
 ?>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Select Panchayat</title>
+    <title>Select User</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,20 +101,17 @@ session_start();
             font-weight: bold;
             text-transform: uppercase;
         }
-        
     </style>
 </head>
 <body>
 <div class="container">
-    <h2><?php 
-       echo $_SESSION['username']; 
-    ?></h2>
-    
+    <h2><?php echo $_SESSION['chat_username']; ?></h2>
+
     <div class="card">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <div class="dropdown-container">
-                <label for="panchayat">Select a panchayat to view users:</label>
-                <select name="panchayat" id="panchayat">
+                <label for="username">Select a user:</label>
+                <select name="username" id="username">
                     <?php
                     // Connect to the database (replace with your own credentials)
                     $servername = "localhost";
@@ -105,14 +127,14 @@ session_start();
                         die("Connection failed: " . $conn->connect_error);
                     }
 
-                    // Fetch unique panchayat names from the users table
-                    $sql = "SELECT DISTINCT panchayath FROM users";
+                    // Fetch usernames from the users table
+                    $sql = "SELECT username FROM users";
                     $result = $conn->query($sql);
 
-                    // Display panchayat names as options in the dropdown menu
+                    // Display usernames as options in the dropdown menu
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            echo "<option value='" . $row['panchayath'] . "'>" . $row['panchayath'] . "</option>";
+                            echo "<option value='" . $row['username'] . "'>" . $row['username'] . "</option>";
                         }
                     }
 
@@ -122,15 +144,15 @@ session_start();
                 </select>
             </div>
 
-            <button type="submit" class="lets-chat-button">View Users</button>
+            <button type="submit" class="lets-chat-button">Insert Name</button>
         </form>
     </div>
 
     <?php
     // Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Retrieve the selected panchayat value
-        $selectedPanchayat = $_POST['panchayat'];
+        // Retrieve the selected username
+        $selectedUsername = $_POST['username'];
 
         // Connect to the database (replace with your own credentials)
         $servername = "localhost";
@@ -146,29 +168,16 @@ session_start();
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // Fetch users with the selected panchayat
-        $sql = "SELECT username FROM users WHERE panchayath = '$selectedPanchayat'";
-        $result = $conn->query($sql);
+        // Insert the selected username into the database table
+        $stmt = $conn->prepare("INSERT INTO messages(receiver) VALUES (?)");
+        $stmt->bind_param("s", $selectedUsername);
+        $stmt->execute();
 
-        // Display the users
-        if ($result->num_rows > 0) {
-            echo "<div class='table-container'>";
-            echo "<table>";
-            echo "<tr><th>Name</th><th>Action</th></tr>";
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $row['username'] . "</td>";
-                echo "<td><button class='start-chat-button' onclick=\"startChat(" . $row['id'] . ")\">Start Chat</button></td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-            echo "</div>";
-        } else {
-            echo "<div class='card'>No users found in the selected panchayat.</div>";
-        }
-
-        // Close the database connection
+        // Close the statement and database connection
+        $stmt->close();
         $conn->close();
+
+        echo "<div class='card'>Selected username ('$selectedUsername') has been inserted into the database table.</div>";
     }
     ?>
 
@@ -182,3 +191,25 @@ session_start();
 </div>
 </body>
 </html>
+
+
+    <script>
+        function startChat(userId) {
+            // You can implement your logic here to handle the "Start Chat" button click
+            // For example, redirect to a chat page with the selected user ID
+            window.location.href = 'chatarea.php?userId=' + userId;
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+    var selectUser = document.getElementById("username");
+    var selectedUsername = ""; // Variable to store the selected username
+
+    selectUser.addEventListener("change", function () {
+        selectedUsername = selectUser.value;
+    });
+});
+    </script>
+</div>
+</body>
+</html>
+
+
