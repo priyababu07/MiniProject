@@ -83,6 +83,8 @@
             background-color: #f9f9f9;
             padding: 10px;
             box-sizing: border-box;
+            
+            
         }
 
         .chart-bar-column {
@@ -147,6 +149,8 @@
 .logo span{
 	color: #9c9c9c;
 }
+
+
     </style>
 </head>
 <body>

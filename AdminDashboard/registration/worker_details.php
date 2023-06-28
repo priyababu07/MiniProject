@@ -114,14 +114,13 @@
 
 <body>
 <div class="navbar">
-        <h1>Stock Analysis</h1>
+        <h1>Paalan</h1>
     </div>
 
     <div class="sidebar">
         <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">Stocks</a></li>
-            <li><a href="#">Orders</a></li>
+            
         </ul>
     </div>
   <div class="worker-card">

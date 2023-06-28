@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class='message'>
                     <p><?php echo $error; ?></p>
                 </div><br>
-                <a href='login.php'><button class='btn'>Go Back</button></a>
+                <a href='/LandingPage/index1.php'><button class='btn'>Go Back</button></a>
             <?php else : ?>
                 <header>Login</header>
                 <form action="" method="post">
