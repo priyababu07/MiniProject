@@ -27,6 +27,9 @@ include 'connect.php';
     <button class="btn btn-primary my-5">
       <a href="../form1/form1.html" class="text-light">ADD NEW</a>
     </button>
+    <button class="btn btn-secondary">
+        <a href="form3.html" class="text-light">BACK</a>
+    </button>
     <table class="table table-striped table-dark table-hover">
       <thead class="table-primary">
         <tr>

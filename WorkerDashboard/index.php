@@ -3,6 +3,7 @@
 <head>
   <title>Anganwadi Worker Dashboard</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
   <header>
@@ -29,6 +30,7 @@
     <ul>
       <li><a href="#">Message</a></li>
       <li><a href="#visualization">Charts</a></li>
+      <li><a href="#bmi">BMI</a></li>
       <li><a href="feedback.php">Feedback</a></li>
       <li><a href="logout.php">Logout</a></li>
       <li><a href="#">Help</a></li>
@@ -90,6 +92,73 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="chart.js"></script>
+
+  <div class="form-container"section id="bmi">
+  <form class="bmi">
+    <h3>Child BMI Result</h3>
+    <table class="table table-striped table-dark table-hover" width=80%>
+      <thead class="table-primary">
+        <tr>
+          <th>Child Name</th>
+          <th>Age</th>
+          <th>BMI Percentage</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "paalan";
+        
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        
+        // Check connection
+        if ($conn == false) {
+            die("connection error");
+        }
+        // Fetch data from the 'child_details' table
+        $query = "SELECT * FROM child_details";
+        $result = mysqli_query($conn, $query);
+        while ($row = mysqli_fetch_assoc($result)) {
+          $childName = $row['child_name'];
+          $childAge = $row['child_age'];
+          $height = $row['height'];
+          $weight = $row['weight'];
+
+          // Skip children with missing height or weight values
+          if (empty($height) || empty($weight)) {
+            continue;
+          }
+
+          $bmiPercentage = ($weight / ($height * $height * 0.0001));
+          $comment = '';
+
+          // Determine the comment based on the BMI percentage value
+          if ($bmiPercentage < 5) {
+            $comment = 'Underweight';
+          } elseif ($bmiPercentage >= 5 && $bmiPercentage < 85) {
+            $comment = 'Healthy weight';
+          } elseif ($bmiPercentage >= 85 && $bmiPercentage < 95) {
+            $comment = 'Overweight';
+          } elseif ($bmiPercentage >= 95) {
+            $comment = 'Obese';
+          }
+          ?>
+          <tr>
+            <td><?php echo $childName; ?></td>
+            <td><?php echo $childAge; ?></td>
+            <td><?php echo $bmiPercentage; ?></td>
+            <td><?php echo $comment; ?></td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </form>
+</div>
+
 
 </body>
 </html> 
