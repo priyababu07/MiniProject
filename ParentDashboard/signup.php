@@ -108,7 +108,7 @@ body{
             $email = $_POST['email'];
             $panchayath = $_POST['panchayath'];
             $password = $_POST['password'];
-            $Women_id = $_POST['Women_id'];  
+            $Woman_id = $_POST['Woman_id'];  
 
             // check if email is unique
             $verify_query = mysqli_query($con,"SELECT Email FROM users WHERE Email='$email'");
@@ -118,7 +118,7 @@ body{
                       </div><br>";
                 echo "<a href='javascript:self.history.back()'><button class='btn'>Go Back</button></a>";
             } else {
-                mysqli_query($con,"INSERT INTO users(Username, Email, Panchayath,Women_id, PASSWORD) VALUES('$username','$email','$panchayath','$Women_id','$password')") or die("Error Occurred");
+                mysqli_query($con,"INSERT INTO users(Username, Email, Panchayath,Woman_id, PASSWORD) VALUES('$username','$email','$panchayath','$Woman_id','$password')") or die("Error Occurred");
                 echo "<div class='message'>
                            <p>Registration Successful</p>
                       </div><br>";
@@ -145,7 +145,7 @@ body{
                 </div>
                 
                 <div class="field input">
-                    <label for="Woman_id">Women Id</label>
+                    <label for="Women_id">Women Id</label>
                     <input type="text" name="Woman_id" id="Woman_id" required>
                 </div>
 
