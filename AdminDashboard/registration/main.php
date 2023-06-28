@@ -69,11 +69,11 @@ session_start();
         <p class="logo"><span>Paa</span>lan</p>
         <a href="#" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
         <a href="agw.php"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Aganwadi Worker Details</a>
-        <a href="pgw.php"class="icon-a"><i class="fa fa-list icons"></i> &nbsp;&nbsp;Preganant Women Details</a>
-        <a href="child.php"class="icon-a"><i class="fa fa-shopping-bag icons"></i> &nbsp;&nbsp;Child Detail</a>
-        <a href="stockapprove.php"class="icon-a"><i class="fa fa-tasks icons"></i> &nbsp;&nbsp;Stock Request</a>
-        <a href="stockanalysis.php"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Stock Analysis</a>
-        <a href="chat/text.php"class="icon-a"><i class="fa fa-user icons"></i> &nbsp;&nbsp;Paalan Chat</a>
+        <a href="pgw.php"class="icon-a"><i class="fa fa-heart icons"></i> &nbsp;&nbsp;Preganant Women Details</a>
+        <a href="child.php"class="icon-a"><i class="fa fa-child icons"></i> &nbsp;&nbsp;Child Detail</a>
+        <a href="stockapprove.php"class="icon-a"><i class="fa fa-inr icons"></i> &nbsp;&nbsp;Stock Request</a>
+        <a href="stockanalysis.php"class="icon-a"><i class="fa fa-bar-chart icons"></i> &nbsp;&nbsp;Stock Analysis</a>
+        <a href="chat/text.php"class="icon-a"><i class="fa fa-weixin icons"></i> &nbsp;&nbsp;Paalan Chat</a>
         
     </div>
     <div id="main">
@@ -144,7 +144,7 @@ session_start();
         }
         ?>
         <p><?php echo $totalCount; ?><br/><span>Pregnant women</span></p>
-        <i class="fas fa-plus box-icon box-icon"></i>
+        <i class="fas fa-heart  box-icon"></i>
     </div>
 </div>
 
@@ -306,7 +306,7 @@ $approvalResult = mysqli_query($conn, $approvalQuery);
             <div class="box-4">
                 <div class="content-box">
                     <p>Total Stock Provided </p>
-
+                      
                     <div class="circle-wrap">
                         <div class="circle">
                             <div class="mask full">

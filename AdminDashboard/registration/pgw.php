@@ -136,9 +136,8 @@ $result = display_data($search);
                     <img src="your-logo.png" alt="Logo">
                 </div>
                 <ul>
-                    <li><a href="main.php">Dashboard</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Settings</a></li>
+                    <li><a href="main.php">Home</a></li>
+                   
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
             </div>
