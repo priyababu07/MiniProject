@@ -33,6 +33,22 @@ if(isset($_POST['submit'])){
           where child_id=$id";
     $result = mysqli_query($con, $sql);
 
+    // new
+    // Insert height value into Height_History table
+    $height_sql = "INSERT INTO Height_History (child_id, child_name, height_value) VALUES ('$id','$child_name', '$height')";
+    mysqli_query($con, $height_sql);
+
+    // Insert weight value into Weight_History table
+    $weight_sql = "INSERT INTO Weight_History (child_id, child_name, weight_value) VALUES ('$id','$child_name', '$weight')";
+    mysqli_query($con, $weight_sql);
+
+
+    //new
+    
+
+
+
+
     if ($result) {
               header("Location:child_update.php");
               exit();
