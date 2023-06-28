@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chat Bot</title>
+    <title>Messages</title>
     <style>
         body {
             font-family: Arial, sans-serif;
