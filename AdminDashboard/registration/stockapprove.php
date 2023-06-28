@@ -136,9 +136,9 @@
 
     <div class="sidebar">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Stocks</a></li>
-            <li><a href="#">Orders</a></li>
+            <li><a href="main.php">Home</a></li>
+            <li><a href="orders.php">Stocks</a></li>
+            <li><a href="stockapprovetb.php">Orders</a></li>
         </ul>
     </div>
 

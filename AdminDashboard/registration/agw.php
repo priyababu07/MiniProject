@@ -134,9 +134,7 @@ $result = display_data();
                 </div>
                 <ul>
                     <li><a href="main.php">Dashboard</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    
                 </ul>
             </div>
             <div class="col-md-9 content">
@@ -155,6 +153,7 @@ $result = display_data();
                                         <tr>
                                         <th>Id</th>
                                         <th>name</th>
+                                        <th>panchayath</th>
                                         <th>score</th>
                                        
                                         </tr>
@@ -164,6 +163,7 @@ $result = display_data();
                                             <tr>
                                             <td><?php echo $row['id']; ?></td>
                                             <td><?php echo $row['name']; ?></td>
+                                            <td><?php echo $row['panchayath']; ?></td>
                                             <td><?php echo $row['score']; ?></td>
                                             
                                             

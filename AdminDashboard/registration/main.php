@@ -215,7 +215,7 @@ if (isset($_GET['approve'])) {
         $row = mysqli_fetch_assoc($approveResult);
 
         // Insert approved worker into the worker_approval table
-        $insertQuery = "INSERT INTO worker_approval (name, score) VALUES ('" . $row['name'] . "', " . $row['score'] . ")";
+        $insertQuery = "INSERT INTO worker_approval (name, score,panchayath) VALUES ('" . $row['name'] . "', " . $row['score'] . "," . $row['panchayath'] . ")";
         
         mysqli_query($conn, $insertQuery);
 
