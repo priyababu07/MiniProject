@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['username'])) {
     // Redirect the user to the login page or display an error message
-    header("Location: login.php"); // Replace 'login.php' with the actual login page URL
+    header("Location: loginedtd1.php"); // Replace 'login.php' with the actual login page URL
     exit;
 }
 
@@ -10,7 +10,8 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 
 // Include the database configuration file
-include("php/config.php");
+include("config.php");
+$con = mysqli_connect("localhost", "root", "", "paalan");
 
 // Retrieve the Women ID from the user table
 $query = "SELECT woman_id FROM users WHERE username = '$username'";
@@ -117,7 +118,7 @@ if ($row = mysqli_fetch_assoc($result)) {
       //   echo "<p><strong>Score:</strong> " . $row['score'] . "</p>";
       //   echo "<p><strong>Panchayath:</strong> " . $row['panchayath'] . "</p>";
     } else {
-      echo "<p>Worker not found.</p>";
+      echo "<p>user not found.</p>";
     }
 
     mysqli_close($con);
