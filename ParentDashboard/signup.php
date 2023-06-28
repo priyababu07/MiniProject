@@ -122,7 +122,7 @@ body{
                 echo "<div class='message'>
                            <p>Registration Successful</p>
                       </div><br>";
-                echo "<a href='login.php'><button class='btn'>Login</button></a>";
+                echo "<a href='loginedtd1.php'><button class='btn'>Login</button></a>";
             }
          } else {
     ?>
@@ -145,8 +145,8 @@ body{
                 </div>
                 
                 <div class="field input">
-                    <label for="Women_id">Women Id</label>
-                    <input type="text" name="Women_id" id="Women_id" required>
+                    <label for="Woman_id">Women Id</label>
+                    <input type="text" name="Woman_id" id="Woman_id" required>
                 </div>
 
                 <div class="field input">
