@@ -474,77 +474,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
 
 
 
-<!-- contact section -->
-<section id="contact" class="contact section-padding">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-header text-center pb-5">
-          <h2>Contact Us</h2>
-          <p>If you want to have more information, contact us.</p>
-        </div>
-      </div>
-    </div>
-    <div class="row m-0">
-      <div class="col-md-12 p-0 pt-4 pb-4">
-        <form id="contactForm" class="bg-light p-4 m-auto">
-          <div class="row m-0">
-            <div class="col-md-12 p-0 pt-4 pb-4">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="mb-3">
-                    <input type="text" class="form-control" required placeholder="Your full name" id="fullName" name="fullName">
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="mb-3">
-                    <input type="email" class="form-control" required placeholder="Your email here" id="email" name="email">
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="mb-3">
-                    <textarea rows="3" required class="form-control" placeholder="Your Query here" id="query" name="query"></textarea>
-                  </div>
-                </div>
-                <button id="submitBtn" class="btn btn-warning btn-lg btn-block mt-3">Submit</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
 
-<script>
-  const contactForm = document.getElementById('contactForm');
-  const submitBtn = document.getElementById('submitBtn');
-
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const fullName = document.getElementById('fullName').value;
-    const email = document.getElementById('email').value;
-    const query = document.getElementById('query').value;
-
-    // Send the form data as an email using PHP's mail() function
-    fetch('send-message.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `fullName=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&query=${encodeURIComponent(query)}`,
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        alert(data); // Display the response message
-        contactForm.reset();
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  });
-</script>
 
 
 

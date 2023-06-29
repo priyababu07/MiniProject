@@ -58,6 +58,7 @@ $anganwadiWorkerName = $row['username'];
       <li><a href="../AdminDashboard/registration/msg.php">Message</a></li>
       <li><a href="#visualization">Charts</a></li>
       <li><a href="#bmi">BMI</a></li>
+      <li><a href="../AdminDashboard/registration/stock.php">Stock Request</a></li>
       <li><a href="feedback.php">Feedback</a></li>
       <li><a href="logout.php">Logout</a></li>
       <li><a href="help.html">Help</a></li>

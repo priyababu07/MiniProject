@@ -2,12 +2,12 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    include("php/config.php");
+    include("config.php");
 
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
 
-    $result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email'") or die("Select Error: " . mysqli_error($con));
+    $result = mysqli_query($con, "SELECT * FROM parent WHERE Email='$email'") or die("Select Error: " . mysqli_error($con));
     $row = mysqli_fetch_assoc($result);
 
     if ($row && $row['password'] === $password) {
@@ -132,7 +132,7 @@ body{
                 <div class='message'>
                     <p><?php echo $error; ?></p>
                 </div><br>
-                <a href='login.php'><button class='btn'>Go Back</button></a>
+                <a href='loginedtd1.php'><button class='btn'>Go Back</button></a>
             <?php else : ?>
                 <header>Login</header>
                 <form action="" method="post">
