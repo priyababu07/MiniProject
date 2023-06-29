@@ -1,8 +1,22 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['valid'])) {
+    header("Location:login.php");
+    exit;
+}
+
+// Set chat username session variable if not set
+if (!isset($_SESSION['chat_username'])) {
+    $_SESSION['chat_username'] = $_SESSION['username'];
+}
+
+
 
 ?>
+
+
+
 
 
 
@@ -157,7 +171,7 @@ session_start();
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h2>Chat System</h2>
+        <h1>Welcome <?php echo $_SESSION['chat_username']; ?></h1>
         </div>
         <div class="chat-messages" id="chat-messages">
             <!-- Chat messages will be displayed here -->

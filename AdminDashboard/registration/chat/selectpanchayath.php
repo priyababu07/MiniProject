@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function startChat(userId) {
         // You can implement your logic here to handle the "Start Chat" button click
         // For example, redirect to a chat page with the selected user ID
-        window.location.href = 'chat.php?userId=' + userId;
+        window.location.href = 'chatarea.php?userId=' + userId;
     }
 </script>
 

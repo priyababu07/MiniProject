@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Deficiency Checker</title>
+   
+    <style>
+       
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'sans-serif';
+        }
+
+        body {
+            background: #e9bd0d;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+
+        .box {
+            background-color: #fdfdfd;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 25px;
+            border-radius: 20px;
+            box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5)
+        }
+
+        .form-box {
+            width: 450px;
+            margin: 0px 10px
+        }
+
+        .form-box header {
+            font-size: 25px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e6e6e6;
+            margin-bottom: 10px;
+        }
+
+        .form-box form .field {
+            display: flex;
+            margin-bottom: 20px; /* Added margin-bottom for spacing */
+            flex-direction: column;
+
+        }
+
+        .form-box form .input input {
+            height: 40px;
+            width: 100%;
+            font-size: 16px;
+            padding: 0 10px;
+            border-radius: 5px;
+            border: 1px solid #f1b21e;
+            outline: none;
+        }
+
+        .btn {
+            height: 35px;
+            background: black;
+            border: 0;
+            border-radius: 5px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all.3s;
+            margin-top: 10px;
+            padding: 0px 10px;
+        }
+
+        .btn:hover {
+            opacity: 0.82;
+        }
+
+        .submit {
+            width: 100%;
+            margin-top: 20px; /* Added margin to move the button downwards */
+        }
+
+        .link {
+            margin-bottom: 15px;
+        }
+
+        .message {
+            text-align: center;
+            padding: 15px 0px;
+            border: 1px solid #699053;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: red;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+        }
+
+        .card label {
+            font-weight: bold;
+        }
+
+        .card input[type="text"] {
+            width: 100px;
+        }
+
+        .check-button {
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+.deficiency {
+    color: red;
+}
+
+.no-deficiency {
+    color: green;
+}
+</style>
+
+
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <header>Child Deficiency Checker</header>
+            <div class="card">
+                <h1>Child Information</h1>
+                <div class="form">
+                    <div class="field">
+                        <label for="height">Height (in cm):</label>
+                        <input type="text" id="height" />
+                    </div>
+                    <div class="field">
+                        <label for="weight">Weight (in kg):</label>
+                        <input type="text" id="weight" />
+                    </div>
+                </div>
+                <div class="submit">
+                    <button class="check-button" onclick="checkDeficiency()">Check Deficiency</button>
+                </div>
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkDeficiency() {
+            // Get user input
+            var height = parseFloat(document.getElementById("height").value);
+            var weight = parseFloat(document.getElementById("weight").value);
+
+            // Define ranges for height and weight
+            var heightRange = {
+                min: 47.1,
+                max: 102.1
+            };
+
+            var weightRange = {
+                min: 2.6,
+                max: 14.8
+            };
+
+            // Check if the child has deficiency
+            var hasDeficiency = height < heightRange.min || height > heightRange.max || weight < weightRange.min || weight > weightRange.max;
+
+            // Display the result
+            var resultElement = document.getElementById("result");
+            if (hasDeficiency) {
+                resultElement.textContent = "The child has a deficiency.";
+                resultElement.className = "deficiency";
+            } else {
+                resultElement.textContent = "The child does not have a deficiency.";
+                resultElement.className = "no-deficiency";
+            }
+        }
+    </script>
+</body>
+
+</html>
