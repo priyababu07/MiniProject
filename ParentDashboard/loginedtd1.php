@@ -152,7 +152,7 @@ body{
                         <input type="submit" class="btn" name="submit" value="Login" required>
                     </div>
                     <div class="links">
-                        Don't have an account? <a href="signup.php">Sign Up</a>
+                        Don't have an account? <a href="../ParentDashboard/signup.php">Sign Up</a>
                     </div>
                 </form>
             <?php endif; ?>

@@ -102,23 +102,23 @@ body{
         
         <?php
         //  include("php/config.php");
-        $con = mysqli_connect("localhost","root","","paalan") or die("Couldn't connect");
+        $con = mysqli_connect("localhost","root","","Paalan") or die("Couldn't connect");
          if(isset($_POST['submit'])){ // click submit
             $username = $_POST['username'];
             $email = $_POST['email'];
-            $panchayath = $_POST['panchayath'];
+            $age = $_POST['age'];
             $password = $_POST['password'];
             $Woman_id = $_POST['Woman_id'];  
 
             // check if email is unique
-            $verify_query = mysqli_query($con,"SELECT Email FROM users WHERE Email='$email'");
+            $verify_query = mysqli_query($con,"SELECT Email FROM parent WHERE Email='$email'");
             if(mysqli_num_rows($verify_query)!=0){
                 echo "<div class='message'>
                            <p>This email is already used. Please try another one.</p>
                       </div><br>";
                 echo "<a href='javascript:self.history.back()'><button class='btn'>Go Back</button></a>";
             } else {
-                mysqli_query($con,"INSERT INTO users(Username, Email, Panchayath,Woman_id, PASSWORD) VALUES('$username','$email','$panchayath','$Woman_id','$password')") or die("Error Occurred");
+                mysqli_query($con,"INSERT INTO parent (Username, Email, age,Woman_id, PASSWORD) VALUES('$username','$email','$age','$Woman_id','$password')") or die("Error Occurred");
                 echo "<div class='message'>
                            <p>Registration Successful</p>
                       </div><br>";
@@ -140,8 +140,8 @@ body{
                 </div>
 
                 <div class="field input">
-                    <label for="panchayath">Panchayath</label>
-                    <input type="text" name="panchayath" id="panchayath" required>
+                    <label for="age">Age</label>
+                    <input type="text" name="age" id="age" required>
                 </div>
                 
                 <div class="field input">
