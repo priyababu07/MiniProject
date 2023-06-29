@@ -30,6 +30,8 @@ $panchayatName = $row['panchayat_name'];
 <head>
   <title>Anganwadi Worker Dashboard</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
@@ -44,9 +46,9 @@ $panchayatName = $row['panchayat_name'];
       <div class="left-section">
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a id="messages-button" href="../AdminDashboard/registration/msg.php">Messages</a></li>
+          <!-- <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li> -->
+          <li><a id="messages-button" href="../AdminDashboard/registration/msg.php" class="icon-a"><i class="bi bi-chat"></i>&nbsp;&nbsp;Messages</a></li>
         </ul>
       </div>
     </div>
@@ -55,14 +57,14 @@ $panchayatName = $row['panchayat_name'];
 
   <div class="sidebar">
     <ul>
-      <li><a href="#">Message</a></li>
-      <li><a href="#visualization">Charts</a></li>
-      <li><a href="#bmi">BMI</a></li>
-      <li><a href="feedback.php">Feedback</a></li>
-      <li><a href="logout.php">Logout</a></li>
-      <li><a href="help.html">Help</a></li>
+      <li><a href="#visualization" class="icon-a"><i class="bi bi-graph-up"></i>&nbsp;&nbsp;Charts</a></li>
+      <li><a href="#bmi" class="icon-a"><i class="bi bi-table"></i>&nbsp;&nbsp;BMI</a></li>
+      <li><a href="feedback.php" class="icon-a"><i class="bi bi-chat-left-text"></i>&nbsp;&nbsp;Feedback</a></li>
+      <li><a href="logout.php" class="icon-a"><i class="bi bi-person-circle"></i>&nbsp;&nbsp;Logout</a></li>
+      <li ><a href="help.html" class="icon-a"><i class="bi bi-info-circle"></i>&nbsp;&nbsp;Help</a></li>
     </ul>
   </div>
+ 
 
 
 

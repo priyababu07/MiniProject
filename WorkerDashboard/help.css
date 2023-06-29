@@ -1,7 +1,4 @@
 
-
-
-
 body {
     font-family: Arial, sans-serif;
     background-color: #99DBF5;
@@ -37,6 +34,16 @@ h1 {
 .update {
     padding: 10px;
     margin: 0;
+}
+
+.updates-link {
+    color: red;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.updates-link:hover {
+    color: blue;
 }
 
 
