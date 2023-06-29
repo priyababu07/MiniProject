@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     //    $_SESSION['panchayat_name'] = $row['panchayat_name'];
 
 
-        header("Location: index1.php");
+        header("Location: index.php");
         exit;
     } else {
         $error = "Wrong Username or Password.";
