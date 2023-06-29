@@ -91,6 +91,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Add the following script tag at the end of the <body> section -->
+<script src="https://cdn.emailjs.com/sdk/2.6.4/email.min.js"></script>
+<script>
+  (function () {
+    // Initialize EmailJS with your user ID
+    emailjs.init("YOUR_USER_ID"); // Replace YOUR_USER_ID with your actual EmailJS user ID
+
+    // Get the contact form element
+    const contactForm = document.getElementById("contactForm");
+
+    // Add event listener for form submission
+    contactForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Get the form fields
+      const fullName = document.getElementById("fullName").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("query").value;
+
+      // Create the email template parameters
+      const templateParams = {
+        from_name: fullName,
+        from_email: email_id,
+        message: message,
+      };
+
+      // Send the email using EmailJS
+      emailjs.send("service_lyq8wcj", "template_p6207ha", templateParams)
+        .then(function (response) {
+          // Email sent successfully
+          alert("Email sent successfully!");
+          contactForm.reset();
+        }, function (error) {
+          // Error occurred while sending email
+          console.error("Error sending email:", error);
+          alert("Error sending email. Please try again later.");
+        });
+    });
+  })();
+</script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -111,7 +153,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
               <li class="nav-item">
                 <a class="nav-link" href="#services">Services</a>
               </li>
-              
+              <li class="nav-item">
+                <a class="nav-link" href="../AdminDashboard/registration/forms/worker.php">New Worker<br>registration</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="#contact">Contact us</a>
               </li>
@@ -246,6 +290,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
   </div>
 
 </section>
+
 
 <!-- sevake starts here -->
 <div class="chat-container" id="chat-container">
@@ -426,65 +471,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     </style>
     <!-- sevake ends here -->
 
-<!-- contact section -->
 
+
+
+<!-- contact section -->
 <section id="contact" class="contact section-padding">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="section-header text-center pb-5">
-          <h2>
-            Contact Us
-          </h2>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          <h2>Contact Us</h2>
+          <p>If you want to have more information, contact us.</p>
         </div>
       </div>
-      <div class="row m-0">
-        <div class="col-md-12 p-0 pt-4 pb-4">
-          <form action="#" class="bg-light p-4.m-auto" >
-            <div class="row m-0">
-              <div class="col-md-12 p-0 pt-4 pb-4">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <input type="text" class="form-control" required placeholder="Your full name">
-                    </div>
+    </div>
+    <div class="row m-0">
+      <div class="col-md-12 p-0 pt-4 pb-4">
+        <form id="contactForm" class="bg-light p-4 m-auto">
+          <div class="row m-0">
+            <div class="col-md-12 p-0 pt-4 pb-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <input type="text" class="form-control" required placeholder="Your full name" id="fullName" name="fullName">
                   </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <input type="email" class="form-control" required placeholder="Your email here">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="mb-3">
-                      <textarea rows="3" required class="form-control" placeholder="Your Query here"></textarea>
-                    </div>
-                  </div>
-                  <button class="btn btn-warning btn-lg btn-block mt-3">Submit</button>
-      
                 </div>
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <input type="email" class="form-control" required placeholder="Your email here" id="email" name="email">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="mb-3">
+                    <textarea rows="3" required class="form-control" placeholder="Your Query here" id="query" name="query"></textarea>
+                  </div>
+                </div>
+                <button id="submitBtn" class="btn btn-warning btn-lg btn-block mt-3">Submit</button>
               </div>
             </div>
-      
-      
-      
-      
-      
-      
           </div>
-        </div>
-      </section>
-          </form>
+        </form>
       </div>
-
-
-
-
-
-
     </div>
   </div>
 </section>
+
+<script>
+  const contactForm = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const query = document.getElementById('query').value;
+
+    // Send the form data as an email using PHP's mail() function
+    fetch('send-message.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `fullName=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&query=${encodeURIComponent(query)}`,
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        alert(data); // Display the response message
+        contactForm.reset();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
+</script>
+
 
 
 <!-- footer -->
