@@ -5,5 +5,5 @@
 
 
 
-$con = mysqli_connect("localhost","root","","paalan") or die("Couldn't connect");
+$con = mysqli_connect("localhost","root","","Paalan") or die("Couldn't connect");
 ?>
