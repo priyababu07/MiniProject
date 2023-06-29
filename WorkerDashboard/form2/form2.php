@@ -12,51 +12,52 @@ if ($data == false) {
 
 if (isset($_POST['submit'])) {
     // Personal Details
-    $firstName = mysqli_real_escape_string($data, $_POST['first_name']);
-    $lastName = mysqli_real_escape_string($data, $_POST['last_name']);
-    $dob = mysqli_real_escape_string($data, $_POST['DOB']);
-    $age = mysqli_real_escape_string($data, $_POST['Age']);
-    $aadhaar = mysqli_real_escape_string($data, $_POST['Aadhaar']);
-    $address = mysqli_real_escape_string($data, $_POST['Address']);
-    $city = mysqli_real_escape_string($data, $_POST['City']);
-    $postalCode = mysqli_real_escape_string($data, $_POST['PostalCode']);
-    $contactNumber = mysqli_real_escape_string($data, $_POST['Ph_num']);
-    $email = mysqli_real_escape_string($data, $_POST['Email']);
+    $firstName = $_POST['first_name'];
+    $lastName = $_POST['last_name'];
+    $dob = $_POST['DOB'];
+    $age = $_POST['Age'];
+    $aadhaar = $_POST['Aadhaar'];
+    $address = $_POST['Address'];
+    $city = $_POST['City'];
+    $postalCode = $_POST['PostalCode'];
+    $contactNumber = $_POST['Ph_num'];
+    $email = $_POST['Email'];
 
     // Pregnancy Details
-    $deliveryDate = mysqli_real_escape_string($data, $_POST['delivery_date']);
-    $lmp = mysqli_real_escape_string($data, $_POST['lastMdate']);
-    $numPregnancies = mysqli_real_escape_string($data, $_POST['noOfPregnancies']);
-    $numLiveBirths = mysqli_real_escape_string($data, $_POST['liveN']);
-    $numMiscarriages = mysqli_real_escape_string($data, $_POST['missN']);
-    $currentWeight = mysqli_real_escape_string($data, $_POST['wt']);
-    $numAbortions = mysqli_real_escape_string($data, $_POST['abN']);
+    $deliveryDate = $_POST['delivery_date'];
+    $lmp = $_POST['lastMdate'];
+    $numPregnancies = $_POST['noOfPregnancies'];
+    $numLiveBirths = $_POST['liveN'];
+    $numMiscarriages = $_POST['missN'];
+    $currentWeight = $_POST['wt'];
+    $numAbortions = $_POST['abN'];
 
     // Medical History
-    $existingConditions = mysqli_real_escape_string($data, $_POST['existing_conditions']);
-    $previousComplications = mysqli_real_escape_string($data, $_POST['previous_conditions']);
-    $currentMedications = mysqli_real_escape_string($data, $_POST['current_medications']);
-    $allergies = mysqli_real_escape_string($data, $_POST['Allergies']);
-    $bloodType = mysqli_real_escape_string($data, $_POST['blood_type']);
+    $existingConditions = $_POST['existing_conditions'];
+    $previousComplications = $_POST['previous_conditions'];
+    $currentMedications = $_POST['current_medications'];
+    $allergies = $_POST['Allergies'];
+    $bloodType = $_POST['blood_type'];
 
     $sql1 = "INSERT INTO `women_personal_details` (`firstName`, `lastName`, `dob`, `age`, `aadharNo`, `address`, `city`, `pCode`, `contactNumber`, `emailAddress`) 
         VALUES ('$firstName', '$lastName', '$dob', '$age', '$aadhaar', '$address', '$city', '$postalCode', '$contactNumber', '$email')";
-    $result1 = mysqli_query($data, $sql1);
+    $result1 = mysqli_multi_query($data, $sql1);
 
     $sql2 = "INSERT INTO `women_pregnancy_details` (`expectedDeliveryDate`, `lmp`, `numberOfPregnancies`, `NumberOfLiveBirths`, `numberOfMiscarriages`, `numberOfAbortions`, `currentWeight`) 
         VALUES ('$deliveryDate', '$lmp', '$numPregnancies', '$numLiveBirths', '$numMiscarriages', '$numAbortions', '$currentWeight')";
-    $result2 = mysqli_query($data, $sql2);
+    $result2 = mysqli_multi_query($data, $sql2);
 
     $sql3 = "INSERT INTO `women_medical_history_details` (`existingMedicalConditions`, `previousPregnancyComplications`, `currentMedications`, `allergies`, `bloodType`)
         VALUES ('$existingConditions', '$previousComplications', '$currentMedications', '$allergies', '$bloodType')";
     $result3 = mysqli_query($data, $sql3);
 
     if ($result1 && $result2 && $result3) {
-        header("Location: form2.html");
+        header("Location:form2.html");
         exit();
     } else {
-        echo "Failed to insert data: " . mysqli_error($data);
+        echo "failed to insert data:" .mysqli_error($data);
     }
+ 
 }
 
 mysqli_close($data);
