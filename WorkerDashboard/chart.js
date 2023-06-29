@@ -26,6 +26,12 @@ fetch('data.php')
                     text: 'Child Height and Weight'
                 },
                 scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Child Names'
+                        }
+                    }],
                     yAxes: [{
                         scaleLabel: {
                             display: true,
@@ -56,10 +62,16 @@ fetch('data.php')
                     text: 'Child Weight'
                 },
                 scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Child Names'
+                        }
+                    }],
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: 'Weight (kg)'
                         }
                     }]
                 }

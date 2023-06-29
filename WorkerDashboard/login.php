@@ -11,8 +11,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $row = mysqli_fetch_assoc($result);
 
     if ($row && $row['password'] === $password) {
-        $_SESSION['valid'] = $row['username'];
+        $_SESSION['valid'] = $row['worker_id'];
         $_SESSION['username'] = $row['Username'];
+
+       // Fetch worker_id from worker_credentials table
+       $workerId = $row['worker_id'];
+
+       // Fetch panchayat_name from anganwadi table using worker_id
+       $query = "SELECT panchayat_name FROM anganwadi WHERE worker_id='$workerId'";
+       $result = mysqli_query($con, $query);
+       $row = mysqli_fetch_assoc($result);
+
+
+       $_SESSION['panchayat_name'] = $row['panchayat_name'];
+
 
         header("Location: index.php");
         exit;

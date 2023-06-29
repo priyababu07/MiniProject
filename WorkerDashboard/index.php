@@ -1,3 +1,30 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['valid'])) {
+    header("Location: login.php");
+    exit;
+}
+
+include("../WorkerDashboard/form3/connect.php");
+
+$workerId = $_SESSION['valid'];
+
+// Fetch the anganwadi worker name based on the worker id
+$sql = "SELECT aww_name FROM anganwadi WHERE worker_id = '$workerId'";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_assoc($result);
+$anganwadiWorkerName = $row['aww_name'];
+
+
+// Fetch the panchayat name based on the worker id
+$sql = "SELECT panchayat_name FROM anganwadi WHERE worker_id = '$workerId'";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_assoc($result);
+$panchayatName = $row['panchayat_name'];
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +36,9 @@
   <header>
     <div class="top-section">
       <div class="site-name">
-        <!-- <h1>PAALAN</h1> -->
         <a href="../LandingPage/index1.php" style="text-decoration: none;" ><h1 style="color: white;">PAALAN</h1></a>
         <h2 class="dashboard">Dashboard</h2>
+        <h2 class="dashboard">Hi <?php echo $anganwadiWorkerName; ?></h2>
       </div>
 
       <div class="left-section">
@@ -33,16 +60,16 @@
       <li><a href="#bmi">BMI</a></li>
       <li><a href="feedback.php">Feedback</a></li>
       <li><a href="logout.php">Logout</a></li>
-      <li><a href="#">Help</a></li>
+      <li><a href="help.html">Help</a></li>
     </ul>
   </div>
 
 
 
-  <h1 id="dashboard-title">Welcome to the <span>Anganwadi Worker Dashboard</span></h1>
+  <h1 id="dashboard-title">Welcome to the <?php echo $panchayatName; ?><span> Anganwadi Worker Dashboard</span></h1>
   <p id="welcome-para">Your dedicated platform for managing child welfare programs<br>and empowering young minds.</p>
-
-
+  
+  
 
   <div class="container">
     <div class="box" onclick="window.location.href='form1/form1.html';">
@@ -54,7 +81,7 @@
         <p>Click to Register</p>
       </div>
     </div>
-    <div class="box" onclick="window.location.href='form2/personal_details.html';">
+    <div class="box" onclick="window.location.href='form2/form2.html';">
       <div class="image-section">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPSH7JSJFyx67kbyZS6DdwmoVfMDYobHNGkA&usqp=CAU" alt="Image 2">
       </div>
