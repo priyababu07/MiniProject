@@ -156,9 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
               <li class="nav-item">
                 <a class="nav-link" href="../AdminDashboard/registration/forms/worker.php">New Worker<br>registration</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#contact">Contact us</a>
-              </li>
+              
               <li class="nav-item">
                 <a class="nav-link" href="log.html">Log in/sign up</a>
               </li>

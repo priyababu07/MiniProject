@@ -11,10 +11,10 @@ $username = $_SESSION['username'];
 
 // Include the database configuration file
 include("config.php");
-$con = mysqli_connect("localhost", "root", "", "paalan");
+$con = mysqli_connect("localhost", "root", "", "Paalan");
 
 // Retrieve the Women ID from the user table
-$query = "SELECT woman_id FROM users WHERE username = '$username'";
+$query = "SELECT woman_id FROM parent WHERE username = '$username'";
 $result = mysqli_query($con, $query);
 
 if ($row = mysqli_fetch_assoc($result)) {
