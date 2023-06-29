@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['username'])) {
     // Redirect the user to the login page or display an error message
-    header("Location: loginedtd1.php"); // Replace 'login.php' with the actual login page URL
+    header("Location: loginedtd1.php"); // Replace 'loginedtd1.php' with the actual login page URL
     exit;
 }
 
@@ -11,14 +11,19 @@ $username = $_SESSION['username'];
 
 // Include the database configuration file
 include("config.php");
-$con = mysqli_connect("localhost", "root", "", "Paalan");
 
-// Retrieve the Women ID from the user table
+// Create a database connection
+$con = mysqli_connect("localhost", "root", "", "Paalan");
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Retrieve the Women ID from the parent table
 $query = "SELECT woman_id FROM parent WHERE username = '$username'";
 $result = mysqli_query($con, $query);
 
 if ($row = mysqli_fetch_assoc($result)) {
-    // Set the 'Women_id' key in the $_SESSION array
+    // Set the 'woman_id' key in the $_SESSION array
     $_SESSION['woman_id'] = $row['woman_id'];
 } else {
     // Handle the case where the Women ID is not found
@@ -36,13 +41,10 @@ if ($row = mysqli_fetch_assoc($result)) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>child Details</title>
+  <title>Child Details</title>
   <style>
-    
-    /* CSS styles omitted for brevity */
     body {
-      background-color:  #e9bd0d;
+      background-color: #e9bd0d;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -52,13 +54,12 @@ if ($row = mysqli_fetch_assoc($result)) {
    
     .worker-card {
       width: 400px;
-      background-color:black;
+      background-color: black;
       padding: 20px;
       border-radius: 10px;
       margin: 20px auto;
       text-align: center;
       color: white;
-      
     }
     
     .worker-card h1 {
@@ -73,8 +74,7 @@ if ($row = mysqli_fetch_assoc($result)) {
     
     .btn {
       display: inline-block;
-      background-color:  #e9bd0d;
-      background-color:;
+      background-color: #e9bd0d;
       color: #fff;
       padding: 10px 20px;
       text-decoration: none;
@@ -82,22 +82,9 @@ if ($row = mysqli_fetch_assoc($result)) {
       margin-top: 10px;
     }
   </style>
-  
 </head>
 
 <body>
-  <!--div class="navbar">
-    <h1>Stock Analysis</h1>
-  </div-->
-
-  <!--div class="sidebar">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Stocks</a></li>
-      <li><a href="#">Orders</a></li>
-    </ul>
-  </div-->
-
   <div class="worker-card">
     <?php
     // Retrieve the worker details based on the provided ID
@@ -108,17 +95,12 @@ if ($row = mysqli_fetch_assoc($result)) {
     if ($row = mysqli_fetch_assoc($result)) {
       // Display the worker details
       echo "<h1>Child Details</h1>";
-
       echo "<p><strong>Name:</strong> " . $row['child_name'] . "</p>";
       echo "<p><strong>Age:</strong> " . $row['child_age'] . "</p>";
-      echo "<p><strong>height:</strong> " . $row['height'] . "</p>";
-      echo "<p><strong>weight:</strong> " . $row['weight'] . "</p>";
-      //   echo "<p><strong>Email:</strong> " . $row['email'] . "</p>";
-      //   echo "<p><strong>Education Qualification:</strong> " . $row['education'] . "</p>";
-      //   echo "<p><strong>Score:</strong> " . $row['score'] . "</p>";
-      //   echo "<p><strong>Panchayath:</strong> " . $row['panchayath'] . "</p>";
+      echo "<p><strong>Height:</strong> " . $row['height'] . "</p>";
+      echo "<p><strong>Weight:</strong> " . $row['weight'] . "</p>";
     } else {
-      echo "<p>user not found.</p>";
+      echo "<p>No child details found.</p>";
     }
 
     mysqli_close($con);
@@ -129,3 +111,4 @@ if ($row = mysqli_fetch_assoc($result)) {
 </body>
 
 </html>
+
