@@ -46,8 +46,6 @@ $panchayatName = $row['panchayat_name'];
       <div class="left-section">
         <ul>
           <li><a href="#">Home</a></li>
-          <!-- <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li> -->
           <li><a id="messages-button" href="../AdminDashboard/registration/msg.php" class="icon-a"><i class="bi bi-chat"></i>&nbsp;&nbsp;Messages</a></li>
         </ul>
       </div>
