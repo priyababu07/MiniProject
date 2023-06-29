@@ -17,16 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
        // Fetch worker_id from worker_credentials table
        $workerId = $row['worker_id'];
 
-       // Fetch panchayat_name from anganwadi table using worker_id
-       $query = "SELECT panchayat_name FROM anganwadi WHERE worker_id='$workerId'";
-       $result = mysqli_query($con, $query);
-       $row = mysqli_fetch_assoc($result);
+    //    // Fetch panchayat_name from anganwadi table using worker_id
+    //    $query = "SELECT panchayat_name FROM anganwadi WHERE worker_id='$workerId'";
+    //    $result = mysqli_query($con, $query);
+    //    $row = mysqli_fetch_assoc($result);
 
 
-       $_SESSION['panchayat_name'] = $row['panchayat_name'];
+    //    $_SESSION['panchayat_name'] = $row['panchayat_name'];
 
 
-        header("Location: index.php");
+        header("Location: index1.php");
         exit;
     } else {
         $error = "Wrong Username or Password.";
