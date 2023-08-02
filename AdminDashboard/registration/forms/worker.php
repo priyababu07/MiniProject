@@ -170,7 +170,7 @@ input[type="submit"]:hover {
 </form>
 
 <script>
-  document.getElementById("registrationForm").addEventListener("submit", function(event) {
+  document.getElementById("registrationForm").addEventListener("submit", function(event)) 
     event.preventDefault();
 
     // Get form values

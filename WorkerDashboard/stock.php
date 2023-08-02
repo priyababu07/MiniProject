@@ -206,7 +206,7 @@
 
     <div class="sidebar">
         <ul>
-            <li><a href="main.php">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             
         </ul>
     </div>

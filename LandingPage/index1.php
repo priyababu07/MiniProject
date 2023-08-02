@@ -36,6 +36,36 @@ function getSchemeInformation($schemeName) {
     }
 }
 
+// Function to fetch all schemes from the database
+// Function to fetch all schemes from the database
+function getAllSchemes() {
+  global $conn;
+
+  // Prepare the SQL query
+  $sql = "SELECT * FROM schemes";
+
+  // Execute the query
+  $result = $conn->query($sql);
+
+  // Check if the query was successful
+  if ($result && $result->num_rows > 0) {
+      // Format the list of schemes
+      $response = 'All Schemes';
+      $count = 1;
+      while ($row = $result->fetch_assoc()) {
+          $response .=  $row['scheme_name'];
+          $int = $row[""];
+          $count++;
+      }
+      $response .= '</ol>';
+  } else {
+      $response = '<p>No schemes found.</p>';
+  }
+
+  return $response;
+}
+
+
 // Function to handle user messages and generate responses
 function handleMessage($message) {
     // Predefined keywords and their corresponding responses
@@ -43,6 +73,7 @@ function handleMessage($message) {
         'hai' => 'Hello, My name is Sevake. How can I help you to understand about the schemes and their eligibility provided by the government?',
         'help' => 'Sure, I can help you with information about schemes available for women and child development in India. Please provide the name of the scheme you want to know about.',
         'thank you' => 'You\'re welcome! If you have any more questions, feel free to ask.',
+        'New Schemes'=> getAllSchemes(),
     );
 
     // Check if the message contains any predefined keywords
@@ -81,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
     exit; // Terminate the script after sending the response
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

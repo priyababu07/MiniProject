@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Quantity Consumed in a Month (Bar Graph)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -9,8 +10,7 @@
             margin: 0;
             padding: 0;
         }
-        
-    
+
         .navbar {
             background-color: #333;
             color: #fff;
@@ -21,11 +21,11 @@
             right: 0;
             z-index: 9999;
         }
-    
+
         .navbar h1 {
             margin: 0;
         }
-    
+
         .sidebar {
             width: 180px;
             background-color: #f4f4f4;
@@ -35,17 +35,17 @@
             top: 70px;
             left: 0;
         }
-    
+
         .sidebar ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-    
+
         .sidebar li {
             margin-bottom: 10px;
         }
-    
+
         .sidebar a {
             display: block;
             text-decoration: none;
@@ -54,18 +54,19 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
-    
+
         .sidebar a:hover {
             background-color: #555;
             color: #fff;
         }
+
         .chart-container {
             width: 80%;
             max-width: 800px;
             margin: 20px auto;
             background-color: #fff;
             padding: 70px;
-            box-sizing:box;
+            box-sizing: box;
         }
 
         .chart-title {
@@ -83,8 +84,6 @@
             background-color: #f9f9f9;
             padding: 10px;
             box-sizing: border-box;
-            
-            
         }
 
         .chart-bar-column {
@@ -126,89 +125,104 @@
             text-align: center;
             margin-top: 10px;
         }
+
         .y-axis-label {
             text-align: center;
-    margin-left: 10px;
-    transform: translate(-50%, -50%) rotate(-90deg);
-    white-space: nowrap;
-    font-size: 12px;
-    font-weight: bold;
-    position: absolute;
-    left: -30px;
-    top: 50%;
-
+            margin-left: 10px;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            left: -30px;
+            top: 50%;
         }
-        .logo{
-	margin: 0px;
-	margin-left: 28px;
-    font-weight: 400px;
-    font-size:20px;
-    color: rgb(224, 183, 20);
-    margin-bottom: 30px;
-}
-.logo span{
-	color: #9c9c9c;
-}
 
+        .logo {
+            margin: 0px;
+            margin-left: 28px;
+            font-weight: 400px;
+            font-size: 20px;
+            color: rgb(224, 183, 20);
+            margin-bottom: 30px;
+        }
 
+        .logo span {
+            color: #9c9c9c;
+        }
     </style>
 </head>
 <body>
-<div class="navbar">
-    <p class="logo"><span>Paa</span>lan</p>
+    <div class="navbar">
+        <p class="logo"><span>Paa</span>lan</p>
     </div>
 
     <div class="sidebar">
         <ul>
             <li><a href="main.php">Home</a></li>
-            
         </ul>
     </div>
     <div class="chart-container">
         <h2 class="chart-title">Quantity Consumed in a Month (Bar Graph)</h2>
-        <div class="chart-bar">
-            <?php
-            // Create a database connection
-            $conn = mysqli_connect("localhost", "root", "", "Stock");
+        <canvas id="chart"></canvas>
+    </div>
 
-            // Check if the connection is successful
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Create a database connection
+        var data = <?php
+            $conn = mysqli_connect("localhost", "root", "", "Stock");
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
-
-            // Fetch the quantity consumed in a month
             $sql = "SELECT MONTH(consumption_date) AS month, SUM(quantity) AS total_quantity FROM stock_approved GROUP BY MONTH(consumption_date)";
             $result = mysqli_query($conn, $sql);
-
-            // Prepare the data for visualization
             $data = [];
             while ($row = mysqli_fetch_assoc($result)) {
-                $month = $row['month'];
+                $month = date("F", mktime(0, 0, 0, $row['month'], 1));
                 $quantity = intval($row['total_quantity']);
                 $data[$month] = $quantity;
             }
-
-            // Close the database connection
+            echo json_encode($data);
             mysqli_close($conn);
-            ?>
+        ?>;
 
-            <?php
-            foreach ($data as $month => $quantity) {
-                $barHeight = ($quantity / max($data)) * 100;
-                echo '<div class="chart-bar-column" style="height: ' . $barHeight . '%">';
-                echo '<span class="chart-label">' . $month . '</span>';
-                echo '<span class="chart-label">' . $quantity . '</span>';
-                echo '</div>';
+        var ctx = document.getElementById('chart').getContext('2d');
+        var labels = Object.keys(data);
+        var quantities = Object.values(data);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Quantity Consumed',
+                    data: quantities,
+                    backgroundColor: 'yellow'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantity (Kg)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Month'
+                        }
+                    }
+                }
             }
-            ?>
-        </div>
-
-        <div class="chart-axis-labels">
-            <span class="y-axis-label">Quantity</span>
-            <span class="x-axis-label">Month</span>
-        </div>
-    </div>
+        });
+    </script>
 </body>
 </html>
+
+
 
 

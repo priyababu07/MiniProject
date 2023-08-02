@@ -60,6 +60,19 @@ session_start();
   .btn-view:hover {
     transform: scale(1.1);
   }
+  .welcome-message {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 30px;
+            color: #333;
+            font-weight: bold; /* Add this line to set the font weight to bold */
+            color: #333;
+        }
+        .username {
+            display: inline-block;
+            font-size: 30px;
+            color: #333;
+        }
   
 </style>
 
@@ -67,6 +80,7 @@ session_start();
 <body>
     <div id="mySidenav" class="sidenav">
         <p class="logo"><span>Paa</span>lan</p>
+        <div class="icon-container">
         <a href="#" class="icon-a"><i class="fa fa-dashboard icons"></i> &nbsp;&nbsp;Dashboard</a>
         <a href="agw.php"class="icon-a"><i class="fa fa-users icons"></i> &nbsp;&nbsp;Aganwadi Worker Details</a>
         <a href="pgw.php"class="icon-a"><i class="fa fa-heart icons"></i> &nbsp;&nbsp;Preganant Women Details</a>
@@ -74,7 +88,7 @@ session_start();
         <a href="stockapprove.php"class="icon-a"><i class="fa fa-inr icons"></i> &nbsp;&nbsp;Stock Request</a>
         <a href="stockanalysis.php"class="icon-a"><i class="fa fa-bar-chart icons"></i> &nbsp;&nbsp;Stock Analysis</a>
         <a href="tester.php"class="icon-a"><i class="fa fa-weixin icons"></i> &nbsp;&nbsp;Update Stock</a>
-        
+</div>
     </div>
     <div id="main">
         <div class="head">
@@ -92,11 +106,14 @@ session_start();
                 <a href="changepassword.php">Change Password</a>
             </div>
         </div>
-                    <span class="username" style="margin-right:1000px;" >
-                        
-                        <?php 
-                        echo $_SESSION['username']; 
-                        ?>
+        <div class="welcome-message">
+                Welcome..........
+            </div>
+            <div class="username">
+                <?php 
+                echo htmlspecialchars($_SESSION['username']); 
+                ?>
+            </div>
                         
                     </span>
                 </div>
@@ -320,4 +337,43 @@ $approvalResult = mysqli_query($conn, $approvalQuery);
                     </div>
                 </div>
                 </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".nav").click(function() {
+                $("#mySidenav").css('width', '70px');
+                $('#main').css('margin-left', '70px');
+                $(".logo").css('visibility', 'visible');
+                $(".logo").css('font-size', '17px');
+                $(".logo").css('width', '15px');
+                $(".logo span").css('visibility', 'visible');
+                $(".logo span").css('margin-left', '-20px');
+                $(".icon-a").css('visibility', 'hidden');
+                $(".icon-a").css('font-size', '15px');
+               
+                // $("icon-a").css('margin-bottom','100px')
+                // $("icon-a").css('margin-top','10px')
+                $(".icons").css('margin-top', '10px');
+                $(".icons").css('margin-bottom', '-5');
+                $(".icons").css('visibility', 'visible');
+                $(".icons").css('margin-top', '-100px');
+                $(".icons").css('margin-left', '-8px');
+                $(".nav").css('display', 'none');
+                $(".nav2").css('display', 'block');
+            });
+
+            $(".nav2").click(function() {
+                $("#mySidenav").css('width', '200px');
+                $('#main').css('margin-left', '200px');
+                $(".logo").css('visibility', 'visible');
+                $(".icon-a").css('visibility', 'visible');
+                $(".icons").css('visibility', 'visible');
+                $(".icons").css('margin-left', '0');
+                $(".nav").css('display', 'block');
+                $(".nav2").css('display', 'none');
+            });
+        });
+    </script>
+                    
+                </body>
                </html>

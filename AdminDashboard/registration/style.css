@@ -1,7 +1,7 @@
 body{
 	margin:0px;
 	padding: 0px;
-	background-color:#e1c41b;
+	background-color:#bdbd33;
 	overflow: hidden;
 	font-family: system-ui;
 }
@@ -25,7 +25,7 @@ body{
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #010101;
+  background-color: #4e4d4d;
   overflow: hidden;
   transition: 0.5s;
   padding-top: 30px;
@@ -266,7 +266,40 @@ td, th {
   background-color: #3e8e41;
 } 
 
+.icon-container {
+  font-size: 24px;
+  visibility: visible;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  #mySidenav {
+      width: 70px;
+  }
+  #main {
+      margin-left: 70px;
+  }
+  .logo {
+      margin-left: -1px;
+      font-size: 10px;
+  }
+  .icons {
+      margin-left: -8px;
+  }
+  .nav {
+      display: none;
+  }
+  .nav2 {
+      display: block;
+  }
+}
+.username {
+  font-size: 24px;
+  color: #333; /* Change the color to your preference */
+  font-weight: bold;
+  margin-left: 20px;
+}
 
-  
 
 

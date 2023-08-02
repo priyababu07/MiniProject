@@ -23,124 +23,129 @@ $result = display_data($search);
     <title>Pregnant Women Details</title>
     <style>
         body {
-            background-color: rgb(224, 183, 20);
-            color: black;
-        }
-        .sidebar {
-        background-color: #333;
-        color: #fff;
-        padding: 20px;
-        height: 100vh;
-        }
-        .sidebar .logo {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .sidebar .logo img {
-            width: 80px;
-        }
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
+            padding: 0;
         }
-        .sidebar ul li {
-            margin-bottom: 15px;
-        }
-        .sidebar ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-        .content {
-            padding: 20px;
-        }
+
         .navbar {
-            background-color: #000;
+            background-color: #333;
             color: #fff;
+            padding: 15px;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
+            z-index: 9999;
         }
-        .navbar .navbar-brand {
-            color: #fff;
-            font-weight: bold;
+
+        .navbar h1 {
+            margin: 0;
         }
-        .navbar .navbar-nav .nav-link {
-            color: #fff;
+        .navbar-brand{
+            color:white;
+        }
+
+        .sidebar {
+            width: 180px;
+            background-color: #f4f4f4;
+            padding: 15px;
+            height: calc(100vh - 70px);
+            position: fixed;
+            top: 70px;
+            left: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 19px;
+        }
+
+        .sidebar a {
+            display: block;
             text-decoration: none;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
+
+        .sidebar a:hover {
+            background-color: #555;
+            color: #fff;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+            margin-top: 70px;
+        }
+       
         .container {
             margin-top: 80px;
         }
-        .table {
-            background-color: white;
-            color: black;
+       
+        h1 {
+            margin-top: 0;
+            color:#000;
         }
-        .table thead th {
-            background-color: black;
-            color: yellow;
-            border-color: black;
+
+        table {
+            border-collapse: collapse;
+            margin-bottom: 150px;
+        }
+
+        th, td {
             padding: 10px;
-            font-weight: bold;
-            vertical-align: middle;
+            border: 1px solid #dddddd;
+            text-align: left;
         }
-        .table tbody td {
-            border-color: black;
-            padding: 10px;
+
+        th {
+            background-color: #f2f2f2;
         }
-        .btn-primary {
-            background-color: black;
-            border-color: rgb(224, 183, 20);
+
+        form {
+            display: inline-block;
         }
-        .btn-primary:hover {
-            background-color: rgb(192, 151, 16);
-            border-color: rgb(192, 151, 16);
-        }
-        .btn-danger {
-            background-color: rgb(224, 183, 20);
-            border-color: rgb(224, 183, 20);
-        }
-        .btn-danger:hover {
-            background-color: rgb(192, 151, 16);
-            border-color: rgb(192, 151, 16);
+
+        button {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
         }
         
     </style>
 </head>
 <body>
-    <nav class="navbar">
+<nav class="navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                
-                Pregnant Women Details
+                Paalan
             </a>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
         </div>
     </nav>
-    
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 sidebar">
-                <div class="logo">
-                    <img src="your-logo.png" alt="Logo">
-                </div>
+                
                 <ul>
                     <li><a href="main.php">Home</a></li>
-                   
-                    <li><a href="logout.php">Logout</a></li>
+                    
                 </ul>
+    
+    
             </div>
+            
             <div class="col-md-9 content">
                 <div class="container">
                     <div class="row">
@@ -151,9 +156,10 @@ $result = display_data($search);
                                     <button type="submit" class="btn btn-primary">Search</button>
                                 </div>
                             </form>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
+ 
+                            
+                                <table class="table">
+                                <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>First Name</th>

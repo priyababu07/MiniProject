@@ -11,17 +11,17 @@ include("../WorkerDashboard/form3/connect.php");
 $workerId = $_SESSION['valid'];
 
 // Fetch the anganwadi worker name based on the worker id
-$sql = "SELECT aww_name FROM anganwadi WHERE worker_id = '$workerId'";
-$result = mysqli_query($con, $sql);
-$row = mysqli_fetch_assoc($result);
-$anganwadiWorkerName = $row['aww_name'];
+// $sql = "SELECT aww_name FROM worker_credentials WHERE worker_id = '$workerId'";
+// $result = mysqli_query($con, $sql);
+// $row = mysqli_fetch_assoc($result);
+// $anganwadiWorkerName = $row['aww_name'];
 
 
-// Fetch the panchayat name based on the worker id
-$sql = "SELECT panchayat_name FROM anganwadi WHERE worker_id = '$workerId'";
-$result = mysqli_query($con, $sql);
-$row = mysqli_fetch_assoc($result);
-$panchayatName = $row['panchayat_name'];
+// // Fetch the panchayat name based on the worker id
+// $sql = "SELECT panchayat_name FROM anganwadi WHERE worker_id = '$workerId'";
+// $result = mysqli_query($con, $sql);
+// $row = mysqli_fetch_assoc($result);
+// $panchayatName = $row['panchayat_name'];
 
 ?>
 
@@ -40,7 +40,7 @@ $panchayatName = $row['panchayat_name'];
       <div class="site-name">
         <a href="../LandingPage/index1.php" style="text-decoration: none;" ><h1 style="color: white;">PAALAN</h1></a>
         <h2 class="dashboard">Dashboard</h2>
-        <h2 class="dashboard">Hi <?php echo $anganwadiWorkerName; ?></h2>
+        <h2 class="dashboard">Hi <?php echo $workerId; ?></h2>
       </div>
 
       <div class="left-section">
@@ -57,7 +57,7 @@ $panchayatName = $row['panchayat_name'];
     <ul>
       <li><a href="#visualization" class="icon-a"><i class="bi bi-graph-up"></i>&nbsp;&nbsp;Charts</a></li>
       <li><a href="#bmi" class="icon-a"><i class="bi bi-table"></i>&nbsp;&nbsp;BMI</a></li>
-      <li><a href="feedback.php" class="icon-a"><i class="bi bi-chat-left-text"></i>&nbsp;&nbsp;Feedback</a></li>
+      <li><a href="./stock.php" class="icon-a"><i class="bi bi-person"></i>&nbsp;&nbsp;Stock Request</a></li>
       <li><a href="logout.php" class="icon-a"><i class="bi bi-person-circle"></i>&nbsp;&nbsp;Logout</a></li>
       <li ><a href="help.html" class="icon-a"><i class="bi bi-info-circle"></i>&nbsp;&nbsp;Help</a></li>
     </ul>
@@ -66,7 +66,7 @@ $panchayatName = $row['panchayat_name'];
 
 
 
-  <h1 id="dashboard-title">Welcome to the <?php echo $panchayatName; ?><span> Anganwadi Worker Dashboard</span></h1>
+  <h1 id="dashboard-title">Welcome to  Anganwadi Worker Dashboard</span></h1>
   <p id="welcome-para">Your dedicated platform for managing child welfare programs<br>and empowering young minds.</p>
   
   
@@ -137,7 +137,7 @@ $panchayatName = $row['panchayat_name'];
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "paalan";
+        $dbname = "Paalan";
         
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);

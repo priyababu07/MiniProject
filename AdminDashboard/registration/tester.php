@@ -115,30 +115,44 @@
         <h1>Stock Availability</h1>
 
         <?php
-        $conn = new mysqli("localhost", "root", "", "registration");
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+$conn = new mysqli("localhost", "root", "", "registration");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $stockAvailable = $_POST['stock_available'];
+    $panchayath = $_POST['panchayath'];
+    $stockItem = $_POST['stock_item'];
+
+    // Check if the panchayath already exists in the table
+    $existingRecord = $conn->query("SELECT * FROM stock_availability WHERE panchayath = '$panchayath'");
+    if ($existingRecord->num_rows > 0) {
+        // Update the existing record
+        $sql = "UPDATE stock_availability SET stock_available = '$stockAvailable', stock_item = '$stockItem' WHERE panchayath = '$panchayath'";
+        if ($conn->query($sql) === TRUE) {
+            echo "<p>Data updated successfully</p>";
+        } else {
+            echo "Error updating data: " . $conn->error;
         }
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $stockAvailable = $_POST['stock_available'];
-            $panchayat = $_POST['panchayat'];
-            $stockItem = $_POST['stock_item'];
-
-            // Insert data into the table
-            $sql = "INSERT INTO stock_availability (stock_available, panchayat, stock_item)
-                    VALUES ('$stockAvailable', '$panchayat', '$stockItem')";
-
-            if ($conn->query($sql) === TRUE) {
-                echo "<p>Data inserted successfully</p>";
-            } else {
-                echo "Error inserting data: " . $conn->error;
-            }
-
-            echo "<p>Stock availability: $stockAvailable</p>";
-            echo "<p>Panchayat: $panchayat</p>";
-            echo "<p>Stock item: $stockItem</p>";
+    } else {
+        // Insert a new record
+        $sql = "INSERT INTO stock_availability (stock_available, panchayath, stock_item)
+                VALUES ('$stockAvailable', '$panchayath', '$stockItem')";
+        if ($conn->query($sql) === TRUE) {
+            echo "<p>Data inserted successfully</p>";
+        } else {
+            echo "Error inserting data: " . $conn->error;
         }
-        ?>
+    }
+
+    echo "<p>Stock availability: $stockAvailable</p>";
+    echo "<p>Panchayath: $panchayath</p>";
+    echo "<p>Stock item: $stockItem</p>";
+}
+
+$conn->close();
+?>
 
         <form method="POST">
             <label>
@@ -151,7 +165,7 @@
             <br><br>
             <label>
                 Panchayath:
-                <input type="text" name="panchayat" required>
+                <input type="text" name="panchayath" required>
             </label>
             <br><br>
             <label>
